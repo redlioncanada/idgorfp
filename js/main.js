@@ -1,15 +1,6 @@
 var opts = {
 	images: [
-		[
-			"1",
-			"2"
-		],
-		[
-			"3"
-		],
-		[
-			"4"
-		]
+		["1","2","3","4","5"],
 	],
 	div: "illustrations",
 	path: "images/illustrations/"
@@ -17,12 +8,12 @@ var opts = {
 var reveal = new Reveal(opts);
 
 
-$('#previous').on('click', function() {
-	reveal.Next();
+$('#prev').on('click', function() {
+	reveal.Previous();
 });
 
 $('#next').on('click', function() {
-	reveal.Previous();
+	reveal.Next();
 });
 
 

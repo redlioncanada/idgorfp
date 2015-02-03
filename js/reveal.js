@@ -6,12 +6,12 @@ function Reveal(opts) {
 	this.myDivId = opts.div;
 	this.path = opts.path;
 	
-	this.lastGroup = 0;
+	this.lastGroup = -1;
 	
 	//private methods
 	this.createImage = function(filename,group,index) {
 		var url = this.path+filename+".png";
-		$("#"+this.myDivId).append("<img src='"+url+"' class='hidden group"+group+" index"+index+"'/>");
+		$("#"+this.myDivId).append("<img src='"+url+"' class='group"+group+" index"+index+"'/>");
 	};
 	this.hideImage = function(group,index) {
 		$('img.group'+group+'.index'+index).fadeOut();	
@@ -33,12 +33,12 @@ function Reveal(opts) {
 
 Reveal.prototype.Next = function(recur) {
 	if (typeof recur === 'undefined') recur = false;
-	lastGroup++;
+	this.lastGroup++;
 	if (this.lastGroup > this.data.length) {
 		if (recur) {
-			this.lastGroup = 0;
+			this.lastGroup = -1;
 		} else {
-			this.lastGroup = this.data.length;
+			this.lastGroup = this.data.length-1;
 		}	
 	}
 	
@@ -47,16 +47,17 @@ Reveal.prototype.Next = function(recur) {
 
 Reveal.prototype.Previous = function(recur) {
 	if (typeof recur === 'undefined') recur = false;
-	lastGroup--;
+
+	$('img.group'+this.lastGroup).fadeOut();
+	
+	this.lastGroup--;
 	if (this.lastGroup < 0) {
 		if (recur) {
 			this.lastGroup = this.data.length;
 		} else {
-			this.lastGroup = 0;
+			this.lastGroup = -1;
 		}	
 	}
-
-	$('img.group'+this.lastGroup).fadeIn();
 }
 
 Reveal.prototype.At = function(index) {

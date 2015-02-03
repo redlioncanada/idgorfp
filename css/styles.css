@@ -66,22 +66,19 @@ img.grayscale {
 }
 
 
-#buttons {
-	z-index: 100;
-}
+#buttons {z-index: 100; width:100%; height:0;}
+#buttons>img {position: absolute;}
+#buttons>.button {top: 450px;}
+#illustrations {z-index: 50; width:100%; height: 100%;}
+#illustrations>img {position:absolute;}
+#logo {position: absolute; top: 200px; left: 89px;}
+img#indigo {width: 196px; position: relative; top: 420px;}
+#next {right: 80px;}
+#prev {left: 80px;}
+#video {z-index: 1; width:100% height: 100%;}
 
-#illustrations {
-	z-index: 50;
-}
 
-#video {
-	z-index: 1;
-}
 
-.hidden {
-	display: none;
-}
-
-.button {
-	cursor: pointer;
-}
+.hidden {display: none;}
+.button {cursor: pointer;}
+img.center {display: block; margin: 0 auto;}
