@@ -1,0 +1,33 @@
+<!doctype html>
+
+<html lang="en">
+<head>
+	<meta charset="utf-8">
+	
+	<title>Video Test</title>
+	<meta name="description" content="The HTML5 Herald">
+	<meta name="author" content="SitePoint">
+	
+	<link rel="stylesheet" href="css/styles.css?v=1.0">
+	
+	<!--[if lt IE 9]>
+	<script src="http://html5shiv.googlecode.com/svn/trunk/html5.js"></script>
+	<![endif]-->
+</head>
+
+<body>
+	<div style="width: 1280px; height: 720px;">
+		<video class="video" id="mainvideo" width="1280" height="720">
+			<source id="mp4_src" src="video/00_BookOpen.mov" type="video/mp4" />
+		</video>
+	</div>
+	<div>
+		<button id="backward">Backward</button>
+		<button id="forward">Forward</button>
+	</div>
+	<script src="http://ajax.googleapis.com/ajax/libs/jquery/1.11.0/jquery.min.js"></script>
+	<script src="js/greensock/jquery.gsap.min.js"></script>
+	<script src="js/greensock/TweenMax.min.js"></script>
+	<script src="js/scripts.js"></script>	
+</body>
+</html>

@@ -1,3 +1,5 @@
+window.disableButtons = true;
+
 var opts = {
 	images: [
 		["1","2","3","4","5"],
@@ -15,13 +17,24 @@ var opts = {
 };
 var reveal = new Reveal(opts);
 
-
 $('#prev').on('click', function() {
-	reveal.Previous();
+	console.log("prev clicked");
+	if (!window.disableButtons) {
+		window.disableButtons = true;
+		reveal.Previous();
+		backwardClick();
+	}
 });
 
 $('#next').on('click', function() {
-	reveal.Next();
+	console.log("next clicked");
+	if (!window.disableButtons) {
+		window.disableButtons = true;
+		reveal.Next();
+		forwardClick();
+	}
 });
 
-
+$(document).ready(function() {
+	initVideo();
+});
