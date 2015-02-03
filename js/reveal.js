@@ -11,7 +11,7 @@ function Reveal(opts) {
 	//private methods
 	this.createImage = function(filename,group,index) {
 		var url = this.path+filename+".png";
-		$("#"+this.myDivId).append("<img src='"+url+"' class='group"+group+" index"+index+"'/>");
+		$("#"+this.myDivId).append("<img src='"+url+"' class='hidden group"+group+" index"+index+"'/>");
 	};
 	this.hideImage = function(group,index) {
 		$('img.group'+group+'.index'+index).fadeOut();	
