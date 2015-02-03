@@ -33,12 +33,30 @@ function Reveal(opts) {
 
 Reveal.prototype.Next = function(recur) {
 	if (typeof recur === 'undefined') recur = false;
-	if (recur && lastGroup > this.data.length) {
-		this.lastGroup = 0;
+	lastGroup++;
+	if (this.lastGroup > this.data.length) {
+		if (recur) {
+			this.lastGroup = 0;
+		} else {
+			this.lastGroup = this.data.length;
+		}	
 	}
 	
 	$('img.group'+this.lastGroup).fadeIn();
-	if (this.lastGroup <= this.data.length) this.lastGroup++;
+}
+
+Reveal.prototype.Previous = function(recur) {
+	if (typeof recur === 'undefined') recur = false;
+	lastGroup--;
+	if (this.lastGroup < 0) {
+		if (recur) {
+			this.lastGroup = this.data.length;
+		} else {
+			this.lastGroup = 0;
+		}	
+	}
+
+	$('img.group'+this.lastGroup).fadeIn();
 }
 
 Reveal.prototype.At = function(index) {

@@ -14,8 +14,15 @@ var opts = {
 	div: "images",
 	path: "images/"
 };
-
 var reveal = new Reveal(opts);
-reveal.Next();
-reveal.Next();
+
+
+$('#previous').on('click', function() {
+	reveal.Next();
+});
+
+$('#next').on('click', function() {
+	reveal.Previous();
+});
+
 
