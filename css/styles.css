@@ -68,3 +68,7 @@ img.grayscale {
 .hidden {
 	display: none;
 }
+
+.button {
+	cursor: pointer;
+}
