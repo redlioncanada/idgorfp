@@ -11,8 +11,8 @@ var opts = {
 			"test"
 		]
 	],
-	div: "images",
-	path: "images/"
+	div: "illustrations",
+	path: "images/illustrations"
 };
 var reveal = new Reveal(opts);
 
