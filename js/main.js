@@ -1,18 +1,18 @@
 var opts = {
 	images: [
 		[
-			"test",
-			"test1"
+			"1",
+			"2"
 		],
 		[
-			"test1"
+			"3"
 		],
 		[
-			"test"
+			"4"
 		]
 	],
 	div: "illustrations",
-	path: "images/illustrations"
+	path: "images/illustrations/"
 };
 var reveal = new Reveal(opts);
 

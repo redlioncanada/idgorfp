@@ -65,6 +65,19 @@ img.grayscale {
     -webkit-filter: grayscale(100%); /* Chrome 19+, Safari 6+, Safari 6+ iOS */
 }
 
+
+#buttons {
+	z-index: 100;
+}
+
+#illustrations {
+	z-index: 50;
+}
+
+#video {
+	z-index: 1;
+}
+
 .hidden {
 	display: none;
 }
