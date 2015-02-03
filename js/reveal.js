@@ -8,6 +8,23 @@ function Reveal(opts) {
 	
 	this.lastGroup = -1;
 	
+	
+	/*height: 986.4
+	width: 1749.79
+	w1: 404.46
+	w1%: 23.767995016545
+	w2: 415.89
+	w2%: 0.23767995016545
+	h1: 110.93
+	h1%: 11.245944849959
+	h2: 82.2
+	h2%: 0.08333333333333
+	book-width: 894.73
+	book-width%: 51.13356459918
+	book-height: 795.66
+	book-height%: 80.66301703163*/
+	
+	
 	//private methods
 	this.createImage = function(filename,group,index) {
 		var url = this.path+filename+".png";
@@ -28,6 +45,33 @@ function Reveal(opts) {
 		for (var index in this.data[group]) {
 			this.createImage(this.data[group][index],group,index);	
 		}
+	}
+	
+	$('body').append('<div id="test" style="position:absolute;z-index:500;border:1px dotted purple;"></div>');
+	resize();
+	$(window).on('resize', function(){
+		resize();
+	});
+	function resize() {
+		var videoWidth = $('#video').width();
+		var bookWidth = videoWidth * .5113356459918;
+		var deadZoneLeft = videoWidth * .23767995016545;
+		var deadZoneRight = deadZoneLeft;
+		var videoHeight = $('#video').height();
+		var deadZoneTop = videoHeight * .11245944849959;
+		var deadZoneBottom = videoHeight * .08333333333333;
+		var videoLeft = $('#video').offset().left;
+		var videoTop = $('#video').offset().top;
+		
+		console.log(videoTop);
+		console.log(videoHeight);
+		
+		$('#test').css({
+			width: (videoWidth-deadZoneLeft-deadZoneRight)+"px",
+			height: videoHeight-deadZoneTop-deadZoneBottom+"px",
+			left: videoLeft+deadZoneLeft+"px",
+			top: videoTop+deadZoneTop+"px"
+		});
 	}
 }
 

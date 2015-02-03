@@ -46,11 +46,7 @@ table {
 /* end css reset */
 
 body {
-	background: url("../images/background_small.jpg") repeat;
-	-webkit-background-size: cover;
-  	-moz-background-size: cover;
-  	-o-background-size: cover;
-  	background-size: cover;
+	background-color: black;
 }
 
 img {
@@ -77,6 +73,6 @@ img#indigo {width: 196px; position: relative; top: 420px; z-index:0;}
 #prev {left: 80px;}
 #video {z-index: 1; height: auto; min-width: 100%;}
 
-.hidden {display: none;}
+.hidden {display: none !important;}
 .button {cursor: pointer;}
 img.center {display: block; margin: 0 auto;}
