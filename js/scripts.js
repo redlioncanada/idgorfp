@@ -3,36 +3,90 @@ var videosrc = null;
 var oggsrc = null;
 var basevideo = null;
 var videojq = null;
+var forwardFolder = "video/forward/";
+var backwardFolder = "video/backward/";
 
 // Set video list and index vars
-var videoList = ['video/00_forward','video/01_forward'];
-var reverseVideoList = ['video/00_reverse','video/01_reverse'];
+var videoList = [
+	'01_BookOpen_final',
+	'openTo02', 
+	"02To03",
+	"03To04",
+	"04To05",
+	"05To06",
+	"06To07",
+	"07To08",
+	"08To09",
+	"09To10",
+	"10To11",
+	"11To12",
+	"12To13",
+	"13To14",
+	"14To15",
+	"15To16",
+	"17To18",
+	"18To19",
+	"19To20",
+	"21To22",
+	"22To23"
+];
+var reverseVideoList = [
+	'01_BookOpenReverse',
+	'openTo02Reverse',
+	"02To03Reverse",
+	"03To04Reverse",
+	"04To05Reverse",
+	"05To06Reverse",
+	"06To07Reverse",
+	"07To08Reverse",
+	"08To09Reverse",
+	"09To10Reverse",
+	"10To11Reverse",
+	"11To12Reverse",
+	"12To13Reverse",
+	"13To14Reverse",
+	"14To15Reverse",
+	"15To16Reverse",
+	"17To18Reverse",
+	"18To19Reverse",
+	"19To20Reverse",
+	"21To22Reverse",
+	"22To23Reverse"
+];
 var videoIndex = 0;
 
 // Set backwards side load video element (hidden)
 var backvideo = document.createElement('video');
 backvideo.autoPlay = false;
+
 var back_mp4 = document.createElement('source');
 back_mp4.type = "video/mp4";
-back_mp4.src = reverseVideoList[videoIndex] + ".mp4";
+back_mp4.src = backwardFolder + reverseVideoList[videoIndex] + ".mov";
+
 var back_ogg = document.createElement('source');
 back_ogg.type="video/ogg"
-back_ogg.src = reverseVideoList[videoIndex] + ".ogg";
+back_ogg.src = backwardFolder + reverseVideoList[videoIndex] + ".ogg";
+
 backvideo.appendChild(back_mp4);
 backvideo.appendChild(back_ogg);
+
 backvideo.load();
 
 // Set forwards side load video element (hidden) and init next video
 var frontvideo = document.createElement('video');
 frontvideo.autoPlay = false;
+
 var front_mp4 = document.createElement('source');
 front_mp4.type = "video/mp4";
-front_mp4.src = videoList[videoIndex+1] + ".mp4";
+front_mp4.src = forwardFolder + videoList[videoIndex+1] + ".mov";
+
 var front_ogg = document.createElement('source');
 front_ogg.type="video/ogg"
-front_ogg.src = videoList[videoIndex] + ".ogg";
+front_ogg.src = forwardFolder + videoList[videoIndex] + ".ogg";
+
 frontvideo.appendChild(front_mp4);
 frontvideo.appendChild(front_ogg);
+
 frontvideo.load();
 
 /**
@@ -67,17 +121,17 @@ function reorderVideos(index, direct) {
 		videoIndex = index;
 	}
 	if (index >= 0 && index < videoList.length) {
-		back_mp4.src = reverseVideoList[index] + ".mp4";
-		back_ogg.src = reverseVideoList[index] + ".ogg";
+		back_mp4.src = backwardFolder + reverseVideoList[index] + ".mov";
+		back_ogg.src = backwardFolder + reverseVideoList[index] + ".ogg";
 		if (direct > 0) {
-			videosrc.src = videoList[index] + ".mp4";
-			oggsrc.src = videoList[index] + ".ogg";
+			videosrc.src = forwardFolder + videoList[index] + ".mov";
+			oggsrc.src = forwardFolder + videoList[index] + ".ogg";
 		} else {
-			videosrc.src = reverseVideoList[index] + ".mp4";
-			oggsrc.src = reverseVideoList[index] + ".ogg";
+			videosrc.src = backwardFolder + reverseVideoList[index] + ".mov";
+			oggsrc.src = backwardFolder + reverseVideoList[index] + ".ogg";
 		}
-		front_mp4.src = videoList[index] + ".mp4";
-		front_ogg.src = videoList[index] + ".ogg";
+		front_mp4.src = forwardFolder + videoList[index] + ".mov";
+		front_ogg.src = forwardFolder + videoList[index] + ".ogg";
 		
 	}
 	//console.log("Backvideo: "+backvideo.src+" current video: "+videosrc.src+" forward Video: "+frontvideo.src);
