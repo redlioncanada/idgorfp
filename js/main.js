@@ -3,7 +3,7 @@ window.disableButtons = false;
 var opts = {
 	images: ["section1","section2","section3","section4","section5"],
 	opacity: [0.3, 0.3, 0.3, 0.7, 1],
-	sections: [2, 4, 6, 15, 17],
+	sections: [3, 5, 7, 16, 18],
 	div: "illustrations",
 	path: "images/illustration/"
 };
