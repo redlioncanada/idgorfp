@@ -7,21 +7,13 @@ function Reveal(opts) {
 	this.sections = opts.sections;
 	this.myDivId = opts.div;
 	this.path = opts.path;
-	this.lastGroup = -1;
-	this.lastImage = -1;
-	this.grayscale = false;
+	this.Reset();
 	
 	//private methods
 	this.createImage = function(filename,group,clas) {
 		if (typeof clas == 'undefined') clas = '';
 		var url = this.path+filename+".png";
 		$("#"+this.myDivId).append("<img src='"+url+"' class='hidden group"+group+" "+clas+"'/>");
-	};
-	this.hideImage = function(group,index) {
-		$('img.group'+group+'.index'+index).fadeOut();	
-	};
-	this.showImage = function(group,index) {
-		$('img.group'+group+'.index'+index).fadeIn();	
 	};
 	this.log = function(str) {
 		console.log('[reveal.js] '+str);
@@ -47,12 +39,8 @@ function Reveal(opts) {
 			height: ((windowHeight-videoHeight)/2)+"px"
 		});
 		
-		$('#blackbar.left').css({
-			width: windowWidth-videoWidth+"px"
-		});
-		
-		$('#blackbar.right').css({
-			width: windowWidth-videoWidth+"px"
+		$('#buttons>.button').css({
+			top: windowHeight/2-$('#buttons>.button').height()+15+"px"
 		});
 	};
 	this.init = function() {
@@ -67,9 +55,6 @@ function Reveal(opts) {
 		self.init();
 		self.resize(true);
 	});
-	setTimeout(function(){
-		self.resize();
-	},200);
 	$(window).on('resize', function(){
 		self.resize();
 	});
@@ -97,7 +82,7 @@ Reveal.prototype.Next = function() {
 Reveal.prototype.Previous = function() {
 	if (this.lastGroup == -1) return;
 	if (this.lastGroup == 0) {
-		$('img.group').fadeOut();
+		$('#illustrations>img').fadeOut();
 		this.lastGtoup--;
 	}
 	if (this.sections.indexOf(--this.lastGroup)+1 > -1) {
@@ -129,4 +114,11 @@ Reveal.prototype.Grayscale = function() {
 	if (this.lastImage == -1) return;
 	$('img.white.group'+this.lastImage).fadeIn();
 	$('img.color.group'+this.lastImage).fadeOut();
+}
+
+Reveal.prototype.Reset = function() {
+	$('#illustrations>img').fadeOut();
+	this.lastGroup = -1;
+	this.lastImage = -1;
+	this.grayscale = false;
 }

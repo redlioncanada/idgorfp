@@ -4,7 +4,6 @@ var opts = {
 	images: ["section1","section2","section3","section4","section5"],
 	opacity: [0.3, 0.3, 0.3, 0.7, 1],
 	sections: [0, 3, 5, 7, 9],
-
 	div: "illustrations",
 	path: "images/illustration/"
 };
