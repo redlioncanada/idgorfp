@@ -211,9 +211,7 @@ var backwardClick = function() {
 };
 
 var playInit = function(event) {
-	basevideo.play();
-	console.log("first video played");
-	basevideo.addEventListener("ended", enablebuttons);
+	
 }
 
 /**
@@ -230,6 +228,10 @@ var initVideo = function() {
 	videojq = $("#video");
 	
 	//var duration = parseInt(basevideo.duration);
-	basevideo.addEventListener('loadeddata', playInit);
+	//basevideo.addEventListener('loadeddata', playInit);
 	//TweenMax.fromTo(basevideo, duration, {currentTime:0}, {currentTime:duration, ease:Linear.easeNone, onComplete:enablebuttons});
+	
+	basevideo.play();
+	console.log("first video played");
+	basevideo.addEventListener("ended", enablebuttons);
 };
