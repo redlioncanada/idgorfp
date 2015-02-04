@@ -1,4 +1,4 @@
-/* Handles image creation and animation */
+/* Handles image creation and animation as well as video element positioning */
 
 function Reveal(opts) {
 	//vars
