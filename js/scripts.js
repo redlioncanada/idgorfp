@@ -13,7 +13,7 @@ frontvideo.id = "frontvideo";
 frontvideo.autoPlay = false;
 
 // Set video list and index vars
-var videoList = ['video/00_BookOpen.mov','video/01_BookOpen.mov','video/02_BookOpen.mov','video/03_BookOpen.mov','video/04_BookOpen.mov','video/05_BookOpen.mov'];
+var videoList = ['video/00_BookOpen_1.mp4','video/01_BookOpen_1.mp4','video/02_BookOpen_1.mp4','video/03_BookOpen_1.mp4','video/04_BookOpen_1.mp4','video/05_BookOpen_1.mp4'];
 var videoIndex = 0;
 frontvideo.src = videoList[videoIndex+1];
 frontvideo.load();
@@ -57,7 +57,7 @@ function reorderVideos(index) {
  */
 var playforward = function(event) {
 	basevideo.currentTime = 0;
-	var duration = basevideo.duration;
+	var duration = parseInt(basevideo.duration);
 	
 	videojq.fadeIn(400, function() {
 		TweenMax.fromTo(basevideo, duration, {currentTime:0}, {currentTime:duration, ease:Linear.easeNone, onComplete:enablebuttons});
@@ -73,7 +73,7 @@ var playforward = function(event) {
  * @return void
  */
 var playbackward = function(event) {
-	var duration = basevideo.duration;
+	var duration = parseInt(basevideo.duration);
 	basevideo.currentTime = duration;
 
 	videojq.fadeIn(400, function() {
@@ -106,9 +106,9 @@ var backwardClick = function() {
 var initVideo = function() {
 	videosrc = document.getElementById("mp4_src");
 	basevideo = document.getElementById("mainvideo");
-	videojq = $("#mainvideo");
-			
-	var duration = basevideo.duration;
+	videojq = $("#video");
+	
+	var duration = parseInt(basevideo.duration);
 	TweenMax.fromTo(basevideo, duration, {currentTime:0}, {currentTime:duration, ease:Linear.easeNone, onComplete:enablebuttons});
 	
 };
