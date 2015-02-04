@@ -1,7 +1,6 @@
 // Set main video player vars
 var videosrc = null;
 var oggsrc = null;
-var basevideo = null;
 var videojq = null;
 var forwardFolder = "video/forward/";
 var backwardFolder = "video/backward/";
@@ -102,9 +101,8 @@ frontvideo.load();
  * @return void
  */
 function enablebuttons() {
-	basevideo.addEventListener
 	window.disableButtons = false;
-	basevideo.removeEventListener("ended", enablebuttons);
+	useVideo.removeEventListener("ended", enablebuttons);
 }
 
 /**
@@ -230,8 +228,8 @@ var initVideo = function() {
 	//basevideo.addEventListener('loadeddata', playInit);
 	//TweenMax.fromTo(basevideo, duration, {currentTime:0}, {currentTime:duration, ease:Linear.easeNone, onComplete:enablebuttons});
 	setTimeout(function() {
-		basevideo.play();
+		useVideo.play();
 		//console.log("first video played");
-		basevideo.addEventListener("ended", enablebuttons);
+		useVideo.addEventListener("ended", enablebuttons);
 	}, 500);
 };
