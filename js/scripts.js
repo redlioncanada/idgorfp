@@ -213,10 +213,6 @@ var backwardClick = function() {
 	reorderVideos(-1);	
 };
 
-var playInit = function(event) {
-	
-}
-
 /**
  * initVideo function.
  * called from on document load in main.js - loads vars and plays first video
@@ -234,7 +230,6 @@ var initVideo = function() {
 	//basevideo.addEventListener('loadeddata', playInit);
 	//TweenMax.fromTo(basevideo, duration, {currentTime:0}, {currentTime:duration, ease:Linear.easeNone, onComplete:enablebuttons});
 	setTimeout(function() {
-		$('#placeholder').hide();
 		useVideo.play();
 		//console.log("first video played");
 		useVideo.addEventListener("ended", enablebuttons);
