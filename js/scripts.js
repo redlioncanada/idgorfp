@@ -5,6 +5,11 @@ var basevideo = null;
 var videojq = null;
 var forwardFolder = "video/forward/";
 var backwardFolder = "video/backward/";
+var videoLayer = 1;
+
+var useVideo = null;
+var usemp4 = null;
+var useogg = null;
 
 // Set video list and index vars
 var videoList = [
@@ -111,28 +116,60 @@ function enablebuttons() {
  * @param int index
  * @return void
  */
-function reorderVideos(index, direct) {
-	if (index < 0) {
-		index = 0; 
-		videoIndex = index;
+function reorderVideos(direct) {
+	
+	if (videoLayer == 0) {
+		videoLayer = 1;
+	} else {
+		videoLayer = 0;
 	}
-	if (index >= videoList.length) {
-		index = videoList.length - 1; 
-		videoIndex = index;
+	useVideo = document.getElementById("layer"+videoLayer+"video");
+	usemp4 = document.getElementById("mp4_src"+videoLayer);
+	useogg = document.getElementById("ogg_src"+videoLayer);
+	
+	if (direct > 0) { 
+		videoIndex++;
 	}
-	if (index >= 0 && index < videoList.length) {
-		back_mp4.src = backwardFolder + reverseVideoList[index] + ".mov";
-		back_ogg.src = backwardFolder + reverseVideoList[index] + ".ogg";
+	
+	if (videoIndex < 0) {
+		videoIndex = 0;
+	}
+	if (videoIndex >= videoList.length) {
+		videoIndex = videoList.length - 1; 
+	}
+	
+	if (videoIndex >= 0 && videoIndex < videoList.length) {
+		back_mp4.src = backwardFolder + reverseVideoList[videoIndex] + ".mov";
+		back_ogg.src = backwardFolder + reverseVideoList[videoIndex] + ".ogg";
 		if (direct > 0) {
-			videosrc.src = forwardFolder + videoList[index] + ".mov";
-			oggsrc.src = forwardFolder + videoList[index] + ".ogg";
+			usemp4.src = forwardFolder + videoList[videoIndex] + ".mov";
+			useogg.src = forwardFolder + videoList[videoIndex] + ".ogg";
 		} else {
-			videosrc.src = backwardFolder + reverseVideoList[index] + ".mov";
-			oggsrc.src = backwardFolder + reverseVideoList[index] + ".ogg";
+			usemp4.src = backwardFolder + reverseVideoList[videoIndex] + ".mov";
+			useogg.src = backwardFolder + reverseVideoList[videoIndex] + ".ogg";
 		}
-		front_mp4.src = forwardFolder + videoList[index] + ".mov";
-		front_ogg.src = forwardFolder + videoList[index] + ".ogg";
-		
+		front_mp4.src = forwardFolder + videoList[videoIndex] + ".mov";
+		front_ogg.src = forwardFolder + videoList[videoIndex] + ".ogg";
+	}
+	
+	frontvideo.load();
+	useVideo.load();
+	backvideo.load();
+	
+	useVideo.addEventListener('loadeddata', playforward);
+	
+	if (videoLayer == 0) {
+		setTimeout(function() {
+			$("#layer1video").fadeOut(500);
+		}, 300);
+	} else {
+		setTimeout(function() {
+			$("#layer1video").fadeIn(500);
+		}, 300);
+	}
+	
+	if (direct < 0) { 
+		videoIndex--;
 	}
 	//console.log("Backvideo: "+backvideo.src+" current video: "+videosrc.src+" forward Video: "+frontvideo.src);
 }
@@ -145,16 +182,11 @@ function reorderVideos(index, direct) {
  * @return void
  */
 var playforward = function(event) {
-	//videojq.fadeIn(400, function() {
-		basevideo.play(); 
-		basevideo.addEventListener("ended", enablebuttons);
-	//});
-	basevideo.removeEventListener("loadeddata", playforward);
+	useVideo.play(); 
+	useVideo.addEventListener("ended", enablebuttons);
+	useVideo.removeEventListener("loadeddata", playforward);
 };
 
-var playInit = function(event) {
-	basevideo.play();
-}
 
 /**
  * forwardClick function.
@@ -164,14 +196,7 @@ var playInit = function(event) {
  * @return void
  */
 var forwardClick = function() {
-	videoIndex++;
-	reorderVideos(videoIndex, 1);
-	
-	frontvideo.load();
-	basevideo.load();
-	///console.log("foreward");
-	
-	basevideo.addEventListener('loadeddata', playforward);
+	reorderVideos(1);	
 };
 
 /**
@@ -182,15 +207,14 @@ var forwardClick = function() {
  * @return void
  */
 var backwardClick = function() {
-	reorderVideos(videoIndex, -1);	
-	videoIndex--;
-	
-	backvideo.load();
-	basevideo.load();
-	//console.log("backward");
-	
-	basevideo.addEventListener('loadeddata', playforward);
+	reorderVideos(-1);	
 };
+
+var playInit = function(event) {
+	basevideo.play();
+	console.log("first video played");
+	basevideo.addEventListener("ended", enablebuttons);
+}
 
 /**
  * initVideo function.
@@ -202,7 +226,7 @@ var backwardClick = function() {
 var initVideo = function() {
 	videosrc = document.getElementById("mp4_src");
 	oggsrc = document.getElementById("ogg_src")
-	basevideo = document.getElementById("mainvideo");
+	basevideo = document.getElementById("layer1video");
 	videojq = $("#video");
 	
 	//var duration = parseInt(basevideo.duration);

@@ -75,7 +75,9 @@ img#indigo {width: 196px; position: relative; top: 420px; z-index:0;}
 #next {right: 80px;}
 #prev {left: 80px;}
 #videowrapper {position: relative;}
-#video {z-index: 1; height: auto; width: 100%;}
+#video {z-index: 1; height: auto; width: 100%; position: relative;}
+#layer0video {z-index: 10; height: auto; width: 100%; position: absolute; top: -50%; left: 0;}
+#layer1video {z-index: 11; height: auto; width: 100%; position: absolute; top: -50%; left: 0;}
 #blackbar {background-color:black; top:0; left:0; position:absolute; z-index: 1000;}
 #blackbar.bottom,#blackbar.top {width:100%;}
 #blackbar.left,#blackbar.right {height:100%;}
