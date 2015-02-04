@@ -92,7 +92,6 @@ frontvideo.appendChild(front_mp4);
 frontvideo.appendChild(front_ogg);
 
 frontvideo.load();
-
 /**
  * enablebuttons function.
  * Fades out video and enables back and forward buttons
@@ -158,11 +157,11 @@ function reorderVideos(direct) {
 	if (videoLayer == 0) {
 		setTimeout(function() {
 			$("#layer1video").fadeOut(500);
-		}, 300);
+		}, 500);
 	} else {
 		setTimeout(function() {
 			$("#layer1video").fadeIn(500);
-		}, 300);
+		}, 500);
 	}
 	
 	if (direct < 0) { 
@@ -228,8 +227,9 @@ var initVideo = function() {
 	//basevideo.addEventListener('loadeddata', playInit);
 	//TweenMax.fromTo(basevideo, duration, {currentTime:0}, {currentTime:duration, ease:Linear.easeNone, onComplete:enablebuttons});
 	setTimeout(function() {
+		$('#placeholder').hide();
 		useVideo.play();
 		//console.log("first video played");
 		useVideo.addEventListener("ended", enablebuttons);
-	}, 500);
+	}, 700);
 };
