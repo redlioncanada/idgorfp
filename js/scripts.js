@@ -1,7 +1,6 @@
 // Set main video player vars
 var videosrc = null;
 var oggsrc = null;
-var basevideo = null;
 var videojq = null;
 var forwardFolder = "video/forward/";
 var backwardFolder = "video/backward/";
@@ -102,9 +101,8 @@ frontvideo.load();
  * @return void
  */
 function enablebuttons() {
-	basevideo.addEventListener
 	window.disableButtons = false;
-	basevideo.removeEventListener("ended", enablebuttons);
+	useVideo.removeEventListener("ended", enablebuttons);
 }
 
 /**
@@ -160,11 +158,11 @@ function reorderVideos(direct) {
 	if (videoLayer == 0) {
 		setTimeout(function() {
 			$("#layer1video").fadeOut(500);
-		}, 300);
+		}, 500);
 	} else {
 		setTimeout(function() {
 			$("#layer1video").fadeIn(500);
-		}, 300);
+		}, 500);
 	}
 	
 	if (direct < 0) { 
@@ -228,8 +226,8 @@ var initVideo = function() {
 	
 	setTimeout(function() {
 		$('#placeholder').hide();
-		basevideo.play();
+		useVideo.play();
 		//console.log("first video played");
-		basevideo.addEventListener("ended", enablebuttons);
-	}, 500);
+		useVideo.addEventListener("ended", enablebuttons);
+	}, 700);
 };
