@@ -1,22 +1,38 @@
-
-
 // Set main video player vars
 var videosrc = null;
+var oggsrc = null;
 var basevideo = null;
 var videojq = null;
 
 // Set video list and index vars
-var videoList = ['video/00_BookOpen_1.mp4','video/01_BookOpen_1.mp4','video/02_BookOpen_1.mp4','video/03_BookOpen_1.mp4','video/04_BookOpen_1.mp4','video/05_BookOpen_1.mp4'];
+var videoList = ['video/00_forward','video/01_forward'];
+var reverseVideoList = ['video/00_reverse','video/01_reverse'];
 var videoIndex = 0;
 
 // Set backwards side load video element (hidden)
 var backvideo = document.createElement('video');
 backvideo.autoPlay = false;
+var back_mp4 = document.createElement('source');
+back_mp4.type = "video/mp4";
+back_mp4.src = reverseVideoList[videoIndex] + ".mp4";
+var back_ogg = document.createElement('source');
+back_ogg.type="video/ogg"
+back_ogg.src = reverseVideoList[videoIndex] + ".ogg";
+backvideo.appendChild(back_mp4);
+backvideo.appendChild(back_ogg);
+backvideo.load();
 
 // Set forwards side load video element (hidden) and init next video
 var frontvideo = document.createElement('video');
 frontvideo.autoPlay = false;
-frontvideo.src = videoList[videoIndex+1];
+var front_mp4 = document.createElement('source');
+front_mp4.type = "video/mp4";
+front_mp4.src = videoList[videoIndex+1] + ".mp4";
+var front_ogg = document.createElement('source');
+front_ogg.type="video/ogg"
+front_ogg.src = videoList[videoIndex] + ".ogg";
+frontvideo.appendChild(front_mp4);
+frontvideo.appendChild(front_ogg);
 frontvideo.load();
 
 /**
@@ -28,9 +44,10 @@ frontvideo.load();
  */
 function enablebuttons() {
 	basevideo.addEventListener
-	videojq.fadeOut(400, function() {
+	//videojq.fadeOut(400, function() {
 		window.disableButtons = false;
-	});
+		basevideo.removeEventListener("ended", enablebuttons);
+	//});
 }
 
 /**
@@ -40,13 +57,30 @@ function enablebuttons() {
  * @param int index
  * @return void
  */
-function reorderVideos(index) {
-	if (index > 0 && index < videoList.length) {
-		backvideo.src = videoList[index-1];
-		videosrc.src = videoList[index];
-		frontvideo.src = videoList[index];
-		//console.log("Backvideo: "+backvideo.src+" current video: "+videosrc.src+" forward Video: "+frontvideo.src);
+function reorderVideos(index, direct) {
+	if (index < 0) {
+		index = 0; 
+		videoIndex = index;
 	}
+	if (index >= videoList.length) {
+		index = videoList.length - 1; 
+		videoIndex = index;
+	}
+	if (index >= 0 && index < videoList.length) {
+		back_mp4.src = reverseVideoList[index] + ".mp4";
+		back_ogg.src = reverseVideoList[index] + ".ogg";
+		if (direct > 0) {
+			videosrc.src = videoList[index] + ".mp4";
+			oggsrc.src = videoList[index] + ".ogg";
+		} else {
+			videosrc.src = reverseVideoList[index] + ".mp4";
+			oggsrc.src = reverseVideoList[index] + ".ogg";
+		}
+		front_mp4.src = videoList[index] + ".mp4";
+		front_ogg.src = videoList[index] + ".ogg";
+		
+	}
+	//console.log("Backvideo: "+backvideo.src+" current video: "+videosrc.src+" forward Video: "+frontvideo.src);
 }
 
 /**
@@ -57,31 +91,16 @@ function reorderVideos(index) {
  * @return void
  */
 var playforward = function(event) {
-	basevideo.currentTime = 0;
-	var duration = parseInt(basevideo.duration);
-	
-	videojq.fadeIn(400, function() {
-		TweenMax.fromTo(basevideo, duration, {currentTime:0}, {currentTime:duration, ease:Linear.easeNone, onComplete:enablebuttons});
-	});
+	//videojq.fadeIn(400, function() {
+		basevideo.play(); 
+		basevideo.addEventListener("ended", enablebuttons);
+	//});
 	basevideo.removeEventListener("loadeddata", playforward);
 };
 
-/**
- * playbackward function.
- * for backward button click video loaded event listener. Fades in and plays video.
- * 
- * @param mixed event (passed by event listener)
- * @return void
- */
-var playbackward = function(event) {
-	var duration = Math.floor(basevideo.duration);
-	basevideo.currentTime = duration;
-
-	videojq.fadeIn(400, function() {
-		TweenMax.fromTo(basevideo, duration, {currentTime:duration}, {currentTime:0, ease:Linear.easeNone, onComplete:enablebuttons});
-	});
-	basevideo.removeEventListener("loadeddata", playbackward);
-};
+var playInit = function(event) {
+	basevideo.play();
+}
 
 /**
  * forwardClick function.
@@ -92,10 +111,11 @@ var playbackward = function(event) {
  */
 var forwardClick = function() {
 	videoIndex++;
-	reorderVideos(videoIndex);
+	reorderVideos(videoIndex, 1);
 	
 	frontvideo.load();
 	basevideo.load();
+	///console.log("foreward");
 	
 	basevideo.addEventListener('loadeddata', playforward);
 };
@@ -108,13 +128,14 @@ var forwardClick = function() {
  * @return void
  */
 var backwardClick = function() {
+	reorderVideos(videoIndex, -1);	
 	videoIndex--;
-	reorderVideos(videoIndex);	
-		
+	
 	backvideo.load();
 	basevideo.load();
+	//console.log("backward");
 	
-	basevideo.addEventListener('loadeddata', playbackward);
+	basevideo.addEventListener('loadeddata', playforward);
 };
 
 /**
@@ -126,9 +147,11 @@ var backwardClick = function() {
  */
 var initVideo = function() {
 	videosrc = document.getElementById("mp4_src");
+	oggsrc = document.getElementById("ogg_src")
 	basevideo = document.getElementById("mainvideo");
 	videojq = $("#video");
 	
-	var duration = parseInt(basevideo.duration);
-	TweenMax.fromTo(basevideo, duration, {currentTime:0}, {currentTime:duration, ease:Linear.easeNone, onComplete:enablebuttons});
+	//var duration = parseInt(basevideo.duration);
+	basevideo.addEventListener('loadeddata', playInit);
+	//TweenMax.fromTo(basevideo, duration, {currentTime:0}, {currentTime:duration, ease:Linear.easeNone, onComplete:enablebuttons});
 };
