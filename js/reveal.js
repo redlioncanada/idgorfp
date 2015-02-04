@@ -27,7 +27,7 @@ function Reveal(opts) {
 		var windowWidth = $(window).width();
 		var newVideoTop = ((windowHeight-videoHeight)/2);
 		
-		$('#video1,#video2').css({
+		$('#video1,#video2,#placeholder').css({
 			top: newVideoTop+"px"
 		});
 		
