@@ -1,20 +1,21 @@
+
+
 // Set main video player vars
 var videosrc = null;
 var basevideo = null;
 var videojq = null;
 
-// Set side load video elements (hidden)
-var backvideo = document.createElement('video');
-backvideo.id = "backvideo";
-backvideo.autoPlay = false;
-
-var frontvideo = document.createElement('video');
-frontvideo.id = "frontvideo";
-frontvideo.autoPlay = false;
-
 // Set video list and index vars
 var videoList = ['video/00_BookOpen_1.mp4','video/01_BookOpen_1.mp4','video/02_BookOpen_1.mp4','video/03_BookOpen_1.mp4','video/04_BookOpen_1.mp4','video/05_BookOpen_1.mp4'];
 var videoIndex = 0;
+
+// Set backwards side load video element (hidden)
+var backvideo = document.createElement('video');
+backvideo.autoPlay = false;
+
+// Set forwards side load video element (hidden) and init next video
+var frontvideo = document.createElement('video');
+frontvideo.autoPlay = false;
 frontvideo.src = videoList[videoIndex+1];
 frontvideo.load();
 
@@ -82,6 +83,13 @@ var playbackward = function(event) {
 	basevideo.removeEventListener("loadeddata", playbackward);
 };
 
+/**
+ * forwardClick function.
+ * called from next on click in main.js - reorders and loads next video
+ * 
+ * @param mixed event (passed by event listener)
+ * @return void
+ */
 var forwardClick = function() {
 	videoIndex++;
 	reorderVideos(videoIndex);
@@ -92,6 +100,13 @@ var forwardClick = function() {
 	basevideo.addEventListener('loadeddata', playforward);
 };
 
+/**
+ * backwardClick function.
+ * called from prev on click in main.js - reorders and loads previous video
+ * 
+ * @param mixed event (passed by event listener)
+ * @return void
+ */
 var backwardClick = function() {
 	videoIndex--;
 	reorderVideos(videoIndex);	
@@ -102,7 +117,13 @@ var backwardClick = function() {
 	basevideo.addEventListener('loadeddata', playbackward);
 };
 
-
+/**
+ * initVideo function.
+ * called from on document load in main.js - loads vars and plays first video
+ * 
+ * @param mixed event (passed by event listener)
+ * @return void
+ */
 var initVideo = function() {
 	videosrc = document.getElementById("mp4_src");
 	basevideo = document.getElementById("mainvideo");
@@ -110,5 +131,4 @@ var initVideo = function() {
 	
 	var duration = parseInt(basevideo.duration);
 	TweenMax.fromTo(basevideo, duration, {currentTime:0}, {currentTime:duration, ease:Linear.easeNone, onComplete:enablebuttons});
-	
 };
