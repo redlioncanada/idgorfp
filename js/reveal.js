@@ -26,7 +26,7 @@ function Reveal(opts) {
 		var windowHeight = $(window).height();
 		var windowWidth = $(window).width();
 		
-		$('#video1,#video2').css({
+		$('#video1,#video2,#illustrations').css({
 			top: ((windowHeight-videoHeight)/2)+"px"
 		});
 		
