@@ -72,6 +72,8 @@ Reveal.prototype.Next = function() {
 	},200);
 	this.lastImage++;
 	
+	this.log('page: '+this.lastImage);
+	
 	if (this.grayscale) {
 		$('img.white.group'+this.lastImage).animate({'opacity':this.opacity[this.lastImage]});
 	} else {

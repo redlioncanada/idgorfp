@@ -77,10 +77,9 @@ img#indigo {width: 196px; position: relative; top: 420px; z-index:0;}
 #videowrapper {position: relative;}
 #video {z-index: 1; height: auto; width: 100%;}
 #blackbar {background-color:black; top:0; left:0; position:absolute; z-index: 1000;}
-#blackbar.bottom,#blackbar.top {width:100%;}
-#blackbar.left,#blackbar.right {height:100%;}
-#blackbar.right {right:0}
+#blackbar.bottom,#blackbar.top {width: 100%;}
 
 .hidden {opacity: 0;}
 .button {cursor: pointer;}
 img.center {display: block; margin: 0 auto;}
+/*@media (max-height: 590px) {make sure red lion logo doesn't overlap the navigators}*/
