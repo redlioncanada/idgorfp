@@ -1,31 +1,11 @@
-window.disableButtons = true;
+window.disableButtons = false;
 
 var opts = {
-	images: [
-		[
-		],
-		[
-		],
-		[
-		],
-		[
-			{name:"1",left:-80,top:-5},
-			{name:"2",left:-80,top:-5},
-			{name:"3",left:-80,top:-5}
-		],
-		[
-			{name:"4",left:-80,top:-5},
-			{name:"5",left:-80,top:-5},
-			{name:"6",left:-80,top:-5}
-		],
-		[
-			{name:"7",left:-80,top:-5},
-			{name:"8",left:-80,top:-5},
-			{name:"9",left:-80,top:-5}
-		],
-	],
+	images: ["section1","section2","section3","section4","section5"],
+	opacity: [0.3, 0.3, 0.3, 0.7, 1],
+	sections: [0, 3, 5, 7, 9],
 	div: "illustrations",
-	path: "images/illustrations/"
+	path: "images/illustration/"
 };
 var reveal = new Reveal(opts);
 
@@ -33,14 +13,14 @@ $('#prev').on('click', function() {
 	console.log("prev clicked");
 	if (!window.disableButtons) {
 		window.disableButtons = true;
-		reveal.Previous();
+		//reveal.Previous();
 		backwardClick();
 	}
 });
 
 $('#next').on('click', function() {
-	console.log("next clicked");
 	if (!window.disableButtons) {
+		console.log("next clicked");
 		window.disableButtons = true;
 		reveal.Next();
 		forwardClick();
@@ -48,5 +28,5 @@ $('#next').on('click', function() {
 });
 
 $(document).ready(function() {
-	//initVideo();
+	initVideo();
 });

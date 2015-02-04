@@ -62,12 +62,14 @@ img.grayscale {
     -webkit-filter: grayscale(100%); /* Chrome 19+, Safari 6+, Safari 6+ iOS */
 }
 
+body {min-width:580px;}
 body > div {position: absolute; top:0; width:100%; height: 100%}
 #buttons {z-index: 100; width:100%; height:0;}
 #buttons>img {position: absolute;}
 #buttons>.button {top: 450px;}
-#illustrations {z-index: 50;}
-#illustrations>img {position:absolute;}
+#illustrations {z-index: 50; height: 100%; width: inherit; position: absolute;}
+#illustrations>img {position:absolute; z-index:1; height: 103%; left: -17%; top: -3%}
+#illustrations>img.white {z-index:2;}
 #logo {position: absolute; top: 200px; left: 89px; width: auto; height: auto; z-index: 100;}
 img#indigo {width: 196px; position: relative; top: 420px; z-index:0;}
 #next {right: 80px;}
@@ -79,6 +81,6 @@ img#indigo {width: 196px; position: relative; top: 420px; z-index:0;}
 #blackbar.left,#blackbar.right {height:100%;}
 #blackbar.right {right:0}
 
-.hidden {display: none !important;}
+.hidden {opacity: 0;}
 .button {cursor: pointer;}
 img.center {display: block; margin: 0 auto;}

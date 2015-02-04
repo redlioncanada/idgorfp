@@ -3,17 +3,19 @@
 function Reveal(opts) {
 	//vars
 	this.data = opts.images;
+	this.opacity = opts.opacity;
+	this.sections = opts.sections;
 	this.myDivId = opts.div;
 	this.path = opts.path;
 	this.lastGroup = -1;
+	this.lastImage = -1;
+	this.grayscale = false;
 	
 	//private methods
-	this.createImage = function(filename,group,index) {
+	this.createImage = function(filename,group,clas) {
+		if (typeof clas == 'undefined') clas = '';
 		var url = this.path+filename+".png";
-		var testTop = $('#test').offset().top;
-		var testLeft = $('#test').offset().left;
-		
-		$("#"+this.myDivId).append("<img src='"+url+"' class='group"+group+" index"+index+"'/>");
+		$("#"+this.myDivId).append("<img src='"+url+"' class='hidden group"+group+" "+clas+"'/>");
 	};
 	this.hideImage = function(group,index) {
 		$('img.group'+group+'.index'+index).fadeOut();	
@@ -25,28 +27,12 @@ function Reveal(opts) {
 		console.log('[reveal.js] '+str);
 	};
 	this.resize = function(init) {
-		//using some magic numbers based on the book's position in relation to the video frame
-		var videoWidth = $('#video').width();
-		var bookWidth = videoWidth * .5113356459918;
-		var deadZoneLeft = videoWidth * .23767995016545;
-		var deadZoneRight = deadZoneLeft;
-		var videoHeight = $('#video').height();
-		var deadZoneTop = videoHeight * .11245944849959;
-		var deadZoneBottom = videoHeight * .08333333333333;
 		var videoLeft = $('#video').offset().left;
 		var videoTop = $('#video').offset().top;
+		var videoHeight = $('#video').height();
+		var videoWidth = $('#video').width();
 		var windowHeight = $(window).height();
 		var windowWidth = $(window).width();
-		var testTop = videoTop+deadZoneTop;
-		if (init) testTop *= 2.6; //init hack, video size returns half for some reason
-		var testLeft = videoLeft+deadZoneLeft;
-		
-		$('#test').css({
-			width: (videoWidth-deadZoneLeft-deadZoneRight)+"px",
-			height: ((videoWidth-deadZoneLeft-deadZoneRight)/(1.1117))+"px",
-			left: testLeft+"px",
-			top: testTop+"px"
-		});
 		
 		$('#video').css({
 			top: ((windowHeight-videoHeight)/2)+"px"
@@ -68,87 +54,77 @@ function Reveal(opts) {
 		$('#blackbar.right').css({
 			width: windowWidth-videoWidth+"px"
 		});
-		
-		for (var group in this.data) {
-			for (var index in this.data[group]) {
-				$('img.group'+group+'.index'+index).css({
-					'top': (testTop + this.data[group][index]['top']) + "px",
-					'left': (testLeft + this.data[group][index]['left']) + "px"
-				});
-			}
-		}
 	};
 	this.init = function() {
 		for (var group in this.data) {
-			for (var index in this.data[group]) {
-				this.createImage(this.data[group][index]['name'],group,index);
-			}
+			this.createImage(this.data[group],group,'color');
+			this.createImage(this.data[group] + "_white",group,'white');
 		}
 	};
-	
-	
-	$('body').append('<div id="test" style="position:absolute;z-index:500;border:1px dotted purple;"></div>');
 	
 	var self = this;
 	$(document).ready(function(){
 		self.init();
 		self.resize(true);
 	});
+	setTimeout(function(){
+		self.resize();
+	},200);
 	$(window).on('resize', function(){
 		self.resize();
 	});
 }
 
-Reveal.prototype.Next = function(recur) {
-	if (typeof recur === 'undefined') recur = false;
-	this.lastGroup++;
-	if (this.lastGroup > this.data.length) {
-		if (recur) {
-			this.lastGroup = -1;
-		} else {
-			this.lastGroup = this.data.length-1;
-		}	
-	}
+Reveal.prototype.Next = function() {
+	if (this.lastGroup >= this.sections[this.sections.length-1]-1) return;
+	if (this.sections.indexOf(++this.lastGroup) == -1) return;
 	
-	$('img.group'+this.lastGroup).fadeIn();
-}
-
-Reveal.prototype.Previous = function(recur) {
-	if (typeof recur === 'undefined') recur = false;
-
-	$('img.group'+this.lastGroup).fadeOut();
+	var self = this;
+	var temp = this.lastImage;
+	setTimeout(function(){
+		$('img.white.group'+temp).fadeOut();
+		$('img.color.group'+temp).fadeOut();
+	},200);
+	this.lastImage++;
 	
-	this.lastGroup--;
-	if (this.lastGroup < 0) {
-		if (recur) {
-			this.lastGroup = this.data.length;
-		} else {
-			this.lastGroup = -1;
-		}	
-	}
-}
-
-Reveal.prototype.At = function(index) {
-	if (this.data[index]) {
-		$('img.group'+index).fadeIn();
-		lastGroup = index;
+	if (this.grayscale) {
+		$('img.white.group'+this.lastImage).animate({'opacity':this.opacity[this.lastImage]});
 	} else {
-		this.log('Method At() caught error: index does not exist');
+		$('img.color.group'+this.lastImage).animate({'opacity':this.opacity[this.lastImage]});
+	}
+}
+
+Reveal.prototype.Previous = function() {
+	if (this.lastGroup == -1) return;
+	if (this.lastGroup == 0) {
+		$('img.group').fadeOut();
+		this.lastGtoup--;
+	}
+	if (this.sections.indexOf(--this.lastGroup)+1 > -1) {
+		var self = this;
+		var temp = this.lastImage;
+		setTimeout(function(){
+			$('img.white.group'+temp).fadeOut();
+			$('img.color.group'+temp).fadeOut();
+		},200);
+		this.lastImage--;
+	
+		if (this.grayscale) {
+			$('img.white.group'+this.lastImage).animate({'opacity':this.opacity[this.lastImage]});
+		} else {
+			$('img.color.group'+this.lastImage).animate({'opacity':this.opacity[this.lastImage]});
+		}
 	}
 }
 
 Reveal.prototype.Color = function() {
-	for (var group in this.data) {
-		for (var index in this.data[group]) {
-			$('img.group'+group+'.index'+index).removeClass('grayscale');
-		}
-	}
+	$('img.white.group'+this.lastImage).fadeOut();
+	$('img.color.group'+this.lastImage).fadeIn();
+	this.grayscale = false;
 }
 
 Reveal.prototype.Grayscale = function() {
-	for (var group in this.data) {
-		for (var index in this.data[group]) {
-			$('img.group'+group+'.index'+index).addClass('grayscale');
-		}
-	}
+	$('img.white.group'+this.lastImage).fadeIn();
+	$('img.color.group'+this.lastImage).fadeOut();
+	this.grayscale = true;
 }
