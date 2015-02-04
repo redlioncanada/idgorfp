@@ -240,5 +240,6 @@ var initVideo = function() {
 		useVideo.play();
 		//console.log("first video played");
 		useVideo.addEventListener("ended", enablebuttons);
+		$('#layer0video').attr('poster','');
 	}, 700);
 };
