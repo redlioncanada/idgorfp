@@ -73,7 +73,7 @@ var playforward = function(event) {
  * @return void
  */
 var playbackward = function(event) {
-	var duration = parseInt(basevideo.duration);
+	var duration = Math.floor(basevideo.duration);
 	basevideo.currentTime = duration;
 
 	videojq.fadeIn(400, function() {
