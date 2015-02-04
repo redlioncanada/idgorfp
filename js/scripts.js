@@ -3,36 +3,95 @@ var videosrc = null;
 var oggsrc = null;
 var basevideo = null;
 var videojq = null;
+var forwardFolder = "video/forward/";
+var backwardFolder = "video/backward/";
+var videoLayer = 1;
+
+var useVideo = null;
+var usemp4 = null;
+var useogg = null;
 
 // Set video list and index vars
-var videoList = ['video/00_forward','video/01_forward'];
-var reverseVideoList = ['video/00_reverse','video/01_reverse'];
+var videoList = [
+	'01_BookOpen_final',
+	'openTo02', 
+	"02To03",
+	"03To04",
+	"04To05",
+	"05To06",
+	"06To07",
+	"07To08",
+	"08To09",
+	"09To10",
+	"10To11",
+	"11To12",
+	"12To13",
+	"13To14",
+	"14To15",
+	"15To16",
+	"17To18",
+	"18To19",
+	"19To20",
+	"21To22",
+	"22To23"
+];
+var reverseVideoList = [
+	'01_BookOpenReverse',
+	'openTo02Reverse',
+	"02To03Reverse",
+	"03To04Reverse",
+	"04To05Reverse",
+	"05To06Reverse",
+	"06To07Reverse",
+	"07To08Reverse",
+	"08To09Reverse",
+	"09To10Reverse",
+	"10To11Reverse",
+	"11To12Reverse",
+	"12To13Reverse",
+	"13To14Reverse",
+	"14To15Reverse",
+	"15To16Reverse",
+	"17To18Reverse",
+	"18To19Reverse",
+	"19To20Reverse",
+	"21To22Reverse",
+	"22To23Reverse"
+];
 var videoIndex = 0;
 
 // Set backwards side load video element (hidden)
 var backvideo = document.createElement('video');
 backvideo.autoPlay = false;
+
 var back_mp4 = document.createElement('source');
 back_mp4.type = "video/mp4";
-back_mp4.src = reverseVideoList[videoIndex] + ".mp4";
+back_mp4.src = backwardFolder + reverseVideoList[videoIndex] + ".mov";
+
 var back_ogg = document.createElement('source');
 back_ogg.type="video/ogg"
-back_ogg.src = reverseVideoList[videoIndex] + ".ogg";
+back_ogg.src = backwardFolder + reverseVideoList[videoIndex] + ".ogg";
+
 backvideo.appendChild(back_mp4);
 backvideo.appendChild(back_ogg);
+
 backvideo.load();
 
 // Set forwards side load video element (hidden) and init next video
 var frontvideo = document.createElement('video');
 frontvideo.autoPlay = false;
+
 var front_mp4 = document.createElement('source');
 front_mp4.type = "video/mp4";
-front_mp4.src = videoList[videoIndex+1] + ".mp4";
+front_mp4.src = forwardFolder + videoList[videoIndex+1] + ".mov";
+
 var front_ogg = document.createElement('source');
 front_ogg.type="video/ogg"
-front_ogg.src = videoList[videoIndex] + ".ogg";
+front_ogg.src = forwardFolder + videoList[videoIndex] + ".ogg";
+
 frontvideo.appendChild(front_mp4);
 frontvideo.appendChild(front_ogg);
+
 frontvideo.load();
 
 /**
@@ -57,28 +116,60 @@ function enablebuttons() {
  * @param int index
  * @return void
  */
-function reorderVideos(index, direct) {
-	if (index < 0) {
-		index = 0; 
-		videoIndex = index;
+function reorderVideos(direct) {
+	
+	if (videoLayer == 0) {
+		videoLayer = 1;
+	} else {
+		videoLayer = 0;
 	}
-	if (index >= videoList.length) {
-		index = videoList.length - 1; 
-		videoIndex = index;
+	useVideo = document.getElementById("layer"+videoLayer+"video");
+	usemp4 = document.getElementById("mp4_src"+videoLayer);
+	useogg = document.getElementById("ogg_src"+videoLayer);
+	
+	if (direct > 0) { 
+		videoIndex++;
 	}
-	if (index >= 0 && index < videoList.length) {
-		back_mp4.src = reverseVideoList[index] + ".mp4";
-		back_ogg.src = reverseVideoList[index] + ".ogg";
+	
+	if (videoIndex < 0) {
+		videoIndex = 0;
+	}
+	if (videoIndex >= videoList.length) {
+		videoIndex = videoList.length - 1; 
+	}
+	
+	if (videoIndex >= 0 && videoIndex < videoList.length) {
+		back_mp4.src = backwardFolder + reverseVideoList[videoIndex] + ".mov";
+		back_ogg.src = backwardFolder + reverseVideoList[videoIndex] + ".ogg";
 		if (direct > 0) {
-			videosrc.src = videoList[index] + ".mp4";
-			oggsrc.src = videoList[index] + ".ogg";
+			usemp4.src = forwardFolder + videoList[videoIndex] + ".mov";
+			useogg.src = forwardFolder + videoList[videoIndex] + ".ogg";
 		} else {
-			videosrc.src = reverseVideoList[index] + ".mp4";
-			oggsrc.src = reverseVideoList[index] + ".ogg";
+			usemp4.src = backwardFolder + reverseVideoList[videoIndex] + ".mov";
+			useogg.src = backwardFolder + reverseVideoList[videoIndex] + ".ogg";
 		}
-		front_mp4.src = videoList[index] + ".mp4";
-		front_ogg.src = videoList[index] + ".ogg";
-		
+		front_mp4.src = forwardFolder + videoList[videoIndex] + ".mov";
+		front_ogg.src = forwardFolder + videoList[videoIndex] + ".ogg";
+	}
+	
+	frontvideo.load();
+	useVideo.load();
+	backvideo.load();
+	
+	useVideo.addEventListener('loadeddata', playforward);
+	
+	if (videoLayer == 0) {
+		setTimeout(function() {
+			$("#layer1video").fadeOut(500);
+		}, 300);
+	} else {
+		setTimeout(function() {
+			$("#layer1video").fadeIn(500);
+		}, 300);
+	}
+	
+	if (direct < 0) { 
+		videoIndex--;
 	}
 	//console.log("Backvideo: "+backvideo.src+" current video: "+videosrc.src+" forward Video: "+frontvideo.src);
 }
@@ -91,16 +182,11 @@ function reorderVideos(index, direct) {
  * @return void
  */
 var playforward = function(event) {
-	//videojq.fadeIn(400, function() {
-		basevideo.play(); 
-		basevideo.addEventListener("ended", enablebuttons);
-	//});
-	basevideo.removeEventListener("loadeddata", playforward);
+	useVideo.play(); 
+	useVideo.addEventListener("ended", enablebuttons);
+	useVideo.removeEventListener("loadeddata", playforward);
 };
 
-var playInit = function(event) {
-	basevideo.play();
-}
 
 /**
  * forwardClick function.
@@ -110,14 +196,7 @@ var playInit = function(event) {
  * @return void
  */
 var forwardClick = function() {
-	videoIndex++;
-	reorderVideos(videoIndex, 1);
-	
-	frontvideo.load();
-	basevideo.load();
-	///console.log("foreward");
-	
-	basevideo.addEventListener('loadeddata', playforward);
+	reorderVideos(1);	
 };
 
 /**
@@ -128,15 +207,14 @@ var forwardClick = function() {
  * @return void
  */
 var backwardClick = function() {
-	reorderVideos(videoIndex, -1);	
-	videoIndex--;
-	
-	backvideo.load();
-	basevideo.load();
-	//console.log("backward");
-	
-	basevideo.addEventListener('loadeddata', playforward);
+	reorderVideos(-1);	
 };
+
+var playInit = function(event) {
+	basevideo.play();
+	console.log("first video played");
+	basevideo.addEventListener("ended", enablebuttons);
+}
 
 /**
  * initVideo function.
@@ -148,7 +226,7 @@ var backwardClick = function() {
 var initVideo = function() {
 	videosrc = document.getElementById("mp4_src");
 	oggsrc = document.getElementById("ogg_src")
-	basevideo = document.getElementById("mainvideo");
+	basevideo = document.getElementById("layer1video");
 	videojq = $("#video");
 	
 	//var duration = parseInt(basevideo.duration);
