@@ -12,8 +12,7 @@ var useogg = null;
 
 // Set video list and index vars
 var videoList = [
-	'01_BookOpen_final',
-	'openTo02', 
+	"01_BookOpen",
 	"02To03",
 	"03To04",
 	"04To05",
@@ -28,11 +27,19 @@ var videoList = [
 	"13To14",
 	"14To15",
 	"15To16",
+	"16To17",
 	"17To18",
 	"18To19",
 	"19To20",
+	"20To21",
 	"21To22",
-	"22To23"
+	"22To23",
+	"23To24",
+	"24To25",
+	"25To26",
+	"26To27",
+	"27To28",
+	"openTo02"
 ];
 var reverseVideoList = [
 	'01_BookOpenReverse',
@@ -65,7 +72,7 @@ backvideo.autoPlay = false;
 
 var back_mp4 = document.createElement('source');
 back_mp4.type = "video/mp4";
-back_mp4.src = backwardFolder + reverseVideoList[videoIndex] + ".mov";
+back_mp4.src = backwardFolder + reverseVideoList[videoIndex] + ".mp4";
 
 var back_ogg = document.createElement('source');
 back_ogg.type="video/ogg"
@@ -82,7 +89,7 @@ frontvideo.autoPlay = false;
 
 var front_mp4 = document.createElement('source');
 front_mp4.type = "video/mp4";
-front_mp4.src = forwardFolder + videoList[videoIndex+1] + ".mov";
+front_mp4.src = forwardFolder + videoList[videoIndex+1] + ".mp4";
 
 var front_ogg = document.createElement('source');
 front_ogg.type="video/ogg"
@@ -92,7 +99,6 @@ frontvideo.appendChild(front_mp4);
 frontvideo.appendChild(front_ogg);
 
 frontvideo.load();
-
 /**
  * enablebuttons function.
  * Fades out video and enables back and forward buttons
@@ -136,16 +142,16 @@ function reorderVideos(direct) {
 	}
 	
 	if (videoIndex >= 0 && videoIndex < videoList.length) {
-		back_mp4.src = backwardFolder + reverseVideoList[videoIndex] + ".mov";
+		back_mp4.src = backwardFolder + reverseVideoList[videoIndex] + ".mp4";
 		back_ogg.src = backwardFolder + reverseVideoList[videoIndex] + ".ogg";
 		if (direct > 0) {
-			usemp4.src = forwardFolder + videoList[videoIndex] + ".mov";
+			usemp4.src = forwardFolder + videoList[videoIndex] + ".mp4";
 			useogg.src = forwardFolder + videoList[videoIndex] + ".ogg";
 		} else {
-			usemp4.src = backwardFolder + reverseVideoList[videoIndex] + ".mov";
+			usemp4.src = backwardFolder + reverseVideoList[videoIndex] + ".mp4";
 			useogg.src = backwardFolder + reverseVideoList[videoIndex] + ".ogg";
 		}
-		front_mp4.src = forwardFolder + videoList[videoIndex] + ".mov";
+		front_mp4.src = forwardFolder + videoList[videoIndex] + ".mp4";
 		front_ogg.src = forwardFolder + videoList[videoIndex] + ".ogg";
 	}
 	
@@ -224,6 +230,9 @@ var initVideo = function() {
 	useVideo = document.getElementById("layer1video");
 	videojq = $("#video");
 	
+	//var duration = parseInt(basevideo.duration);
+	//basevideo.addEventListener('loadeddata', playInit);
+	//TweenMax.fromTo(basevideo, duration, {currentTime:0}, {currentTime:duration, ease:Linear.easeNone, onComplete:enablebuttons});
 	setTimeout(function() {
 		$('#placeholder').hide();
 		useVideo.play();
