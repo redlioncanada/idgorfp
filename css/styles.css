@@ -76,6 +76,3 @@ img#indigo {width: 196px; position: relative; top: 420px; z-index:0;}
 .hidden {opacity: 0;}
 .button {cursor: pointer;}
 img.center {display: block; margin: 0 auto;}
-@media (max-height: 590px) {
-	#logo {display: none;}
-}

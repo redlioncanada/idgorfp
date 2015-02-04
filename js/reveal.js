@@ -49,6 +49,11 @@ function Reveal(opts) {
 		$('#buttons>.button').css({
 			top: windowHeight/2-$('#buttons>.button').height()+15+"px"
 		});
+		
+		if (!init && !$('#logo').is(':animated')) {
+			if (windowWidth < 620 || windowHeight < 600) $('#logo').animate({'opacity':0},200)
+			else $('#logo').animate({'opacity':1},200)
+		}
 	};
 	this.init = function() {
 		for (var group in this.data) {
