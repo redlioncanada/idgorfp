@@ -13,6 +13,7 @@ var useogg = null;
 // Set video list and index vars
 var videoList = [
 	"01_BookOpen",
+	"openTo02",
 	"02To03",
 	"03To04",
 	"04To05",
@@ -38,12 +39,11 @@ var videoList = [
 	"24To25",
 	"25To26",
 	"26To27",
-	"27To28",
-	"openTo02"
+	"27To28"
 ];
 var reverseVideoList = [
-	'01_BookOpenReverse',
-	'openTo02Reverse',
+	"01_BookOpenReverse",
+	"openTo02Reverse",
 	"02To03Reverse",
 	"03To04Reverse",
 	"04To05Reverse",
@@ -58,11 +58,18 @@ var reverseVideoList = [
 	"13To14Reverse",
 	"14To15Reverse",
 	"15To16Reverse",
+	"16To17Reverse",
 	"17To18Reverse",
 	"18To19Reverse",
 	"19To20Reverse",
+	"20To21Reverse",
 	"21To22Reverse",
-	"22To23Reverse"
+	"22To23Reverse",
+	"23To24Reverse",
+	"24To25Reverse",
+	"25To26Reverse",
+	"26To27Reverse",
+	"27To28Reverse"
 ];
 var videoIndex = 0;
 
