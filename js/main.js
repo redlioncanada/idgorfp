@@ -36,5 +36,5 @@ $('#next').on('click', function() {
 });
 
 $(document).ready(function() {
-	initVideo();
+	//initVideo();
 });
