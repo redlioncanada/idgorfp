@@ -46,6 +46,10 @@ function Reveal(opts) {
 		$('#blackbar.right').css({
 			width: windowWidth-videoWidth+"px"
 		});
+		
+		$('#buttons>.button').css({
+			top: windowHeight/2-$('#buttons>.button').height()+15+"px"
+		});
 	};
 	this.init = function() {
 		for (var group in this.data) {
