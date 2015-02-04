@@ -25,9 +25,16 @@ function Reveal(opts) {
 		var videoWidth = $('#video1').width();
 		var windowHeight = $(window).height();
 		var windowWidth = $(window).width();
+		var newVideoTop = ((windowHeight-videoHeight)/2);
 		
-		$('#video1,#video2,#illustrations').css({
-			top: ((windowHeight-videoHeight)/2)+"px"
+		$('#video1,#video2').css({
+			top: newVideoTop+"px"
+		});
+		
+		$('#illustrations').css({
+			top: (newVideoTop-(newVideoTop*0.03))+"px",
+			height: videoHeight+"px",
+			left: -(windowWidth*.17)
 		});
 		
 		$('#blackbar.bottom').css({

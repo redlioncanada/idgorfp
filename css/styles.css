@@ -60,7 +60,7 @@ body > div {position: absolute; top:0; width:100%; height: 100%}
 #buttons>img {position: absolute;}
 #buttons>.button {top: 450px;}
 #illustrations {z-index: 50; height: 100%; width: inherit; position: absolute;}
-#illustrations>img {position:absolute; z-index:1; height: 103%; left: -17%; top: -3%}
+#illustrations>img {position:absolute; z-index:1; height: 103%; left: -17%;}
 #illustrations>img.white {z-index:2;}
 #logo {position: absolute; top: 200px; left: 89px; width: auto; height: auto; z-index: 100;}
 img#indigo {width: 196px; position: relative; top: 420px; z-index:0;}
