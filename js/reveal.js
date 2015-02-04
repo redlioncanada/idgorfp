@@ -118,13 +118,15 @@ Reveal.prototype.Previous = function() {
 }
 
 Reveal.prototype.Color = function() {
+	this.grayscale = false;
+	if (this.lastImage == -1) return;
 	$('img.white.group'+this.lastImage).fadeOut();
 	$('img.color.group'+this.lastImage).fadeIn();
-	this.grayscale = false;
 }
 
 Reveal.prototype.Grayscale = function() {
+	this.grayscale = true;
+	if (this.lastImage == -1) return;
 	$('img.white.group'+this.lastImage).fadeIn();
 	$('img.color.group'+this.lastImage).fadeOut();
-	this.grayscale = true;
 }

@@ -8,6 +8,7 @@ var opts = {
 	path: "images/illustration/"
 };
 var reveal = new Reveal(opts);
+reveal.Grayscale();
 
 $('#prev').on('click', function() {
 	console.log("prev clicked");
@@ -26,6 +27,7 @@ $('#next').on('click', function() {
 		forwardClick();
 	}
 });
+
 
 $(document).ready(function() {
 	initVideo();

@@ -62,7 +62,7 @@ img.grayscale {
     -webkit-filter: grayscale(100%); /* Chrome 19+, Safari 6+, Safari 6+ iOS */
 }
 
-body {min-width:580px;}
+body {min-width:580px; overflow:hidden;}
 body > div {position: absolute; top:0; width:100%; height: 100%}
 #buttons {z-index: 100; width:100%; height:0;}
 #buttons>img {position: absolute;}
