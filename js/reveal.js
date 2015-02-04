@@ -55,9 +55,6 @@ function Reveal(opts) {
 		self.init();
 		self.resize(true);
 	});
-	setTimeout(function(){
-		self.resize();
-	},200);
 	$(window).on('resize', function(){
 		self.resize();
 	});
