@@ -10,7 +10,10 @@ function Reveal(opts) {
 	//private methods
 	this.createImage = function(filename,group,index) {
 		var url = this.path+filename+".png";
-		$("#"+this.myDivId).append("<img src='"+url+"' class='hidden group"+group+" index"+index+"'/>");
+		var testTop = $('#test').offset().top;
+		var testLeft = $('#test').offset().left;
+		
+		$("#"+this.myDivId).append("<img src='"+url+"' class='group"+group+" index"+index+"'/>");
 	};
 	this.hideImage = function(group,index) {
 		$('img.group'+group+'.index'+index).fadeOut();	
@@ -21,22 +24,8 @@ function Reveal(opts) {
 	this.log = function(str) {
 		console.log('[reveal.js] '+str);
 	};
-	this.resize = function() {
-	/*height: 986.4
-	width: 1749.79
-	w1: 404.46
-	w1%: 23.767995016545
-	w2: 415.89
-	w2%: 0.23767995016545
-	h1: 110.93
-	h1%: 11.245944849959
-	h2: 82.2
-	h2%: 0.08333333333333
-	book-width: 894.73
-	book-width%: 51.13356459918
-	book-height: 795.66
-	book-height%: 80.66301703163*/
-	
+	this.resize = function(init) {
+		//using some magic numbers based on the book's position in relation to the video frame
 		var videoWidth = $('#video').width();
 		var bookWidth = videoWidth * .5113356459918;
 		var deadZoneLeft = videoWidth * .23767995016545;
@@ -48,13 +37,15 @@ function Reveal(opts) {
 		var videoTop = $('#video').offset().top;
 		var windowHeight = $(window).height();
 		var windowWidth = $(window).width();
-		
+		var testTop = videoTop+deadZoneTop;
+		if (init) testTop *= 2.6; //init hack, video size returns half for some reason
+		var testLeft = videoLeft+deadZoneLeft;
 		
 		$('#test').css({
 			width: (videoWidth-deadZoneLeft-deadZoneRight)+"px",
 			height: ((videoWidth-deadZoneLeft-deadZoneRight)/(1.1117))+"px",
-			left: videoLeft+deadZoneLeft+"px",
-			top: videoTop+deadZoneTop+"px"
+			left: testLeft+"px",
+			top: testTop+"px"
 		});
 		
 		$('#video').css({
@@ -62,8 +53,8 @@ function Reveal(opts) {
 		});
 		
 		$('#blackbar.bottom').css({
-			top: videoTop+videoHeight-1+"px",
-			height: windowHeight-videoHeight+"px",
+			top: init ? windowHeight-(((windowHeight-videoHeight)/2)) + "px" : videoTop+videoHeight-1+"px",
+			height: init ? ((windowHeight-videoHeight)/2)+"px" : windowHeight-videoHeight+"px",
 		});
 		
 		$('#blackbar.top').css({
@@ -77,19 +68,32 @@ function Reveal(opts) {
 		$('#blackbar.right').css({
 			width: windowWidth-videoWidth+"px"
 		});
+		
+		for (var group in this.data) {
+			for (var index in this.data[group]) {
+				$('img.group'+group+'.index'+index).css({
+					'top': (testTop + this.data[group][index]['top']) + "px",
+					'left': (testLeft + this.data[group][index]['left']) + "px"
+				});
+			}
+		}
+	};
+	this.init = function() {
+		for (var group in this.data) {
+			for (var index in this.data[group]) {
+				this.createImage(this.data[group][index]['name'],group,index);
+			}
+		}
 	};
 	
-	//init
-	for (var group in this.data) {
-		for (var index in this.data[group]) {
-			this.createImage(this.data[group][index],group,index);	
-		}
-	}
 	
 	$('body').append('<div id="test" style="position:absolute;z-index:500;border:1px dotted purple;"></div>');
-	this.resize();
 	
 	var self = this;
+	$(document).ready(function(){
+		self.init();
+		self.resize(true);
+	});
 	$(window).on('resize', function(){
 		self.resize();
 	});
