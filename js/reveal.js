@@ -39,14 +39,6 @@ function Reveal(opts) {
 			height: ((windowHeight-videoHeight)/2)+"px"
 		});
 		
-		$('#blackbar.left').css({
-			width: windowWidth-videoWidth+"px"
-		});
-		
-		$('#blackbar.right').css({
-			width: windowWidth-videoWidth+"px"
-		});
-		
 		$('#buttons>.button').css({
 			top: windowHeight/2-$('#buttons>.button').height()+15+"px"
 		});
