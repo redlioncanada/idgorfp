@@ -62,15 +62,31 @@ function Reveal(opts) {
 		var deadZoneBottom = videoHeight * .08333333333333;
 		var videoLeft = $('#video').offset().left;
 		var videoTop = $('#video').offset().top;
-		
-		console.log(videoTop);
-		console.log(videoHeight);
+		var windowHeight = $(window).height();
+		var windowWidth = $(window).width();
 		
 		$('#test').css({
 			width: (videoWidth-deadZoneLeft-deadZoneRight)+"px",
 			height: videoHeight-deadZoneTop-deadZoneBottom+"px",
 			left: videoLeft+deadZoneLeft+"px",
 			top: videoTop+deadZoneTop+"px"
+		});
+		
+		$('#blackbar.bottom').css({
+			top: videoTop+videoHeight+"px",
+			height: windowHeight-videoHeight+"px",
+		});
+		
+		$('#blackbar.top').css({
+			height: windowHeight-videoHeight+"px"
+		});
+		
+		$('#blackbar.left').css({
+			width: windowWidth-videoWidth+"px"
+		});
+		
+		$('#blackbar.right').css({
+			width: windowWidth-videoWidth+"px"
 		});
 	}
 }

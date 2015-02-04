@@ -72,6 +72,10 @@ img#indigo {width: 196px; position: relative; top: 420px; z-index:0;}
 #next {right: 80px;}
 #prev {left: 80px;}
 #video {z-index: 1; height: auto; min-width: 100%;}
+#blackbar {background-color:black; top:0; left:0; position:absolute;}
+#blackbar.bottom,#blackbar.top {width:100%;}
+#blackbar.left,#blackbar.right {height:100%;}
+#blackbar.right {right:0}
 
 .hidden {display: none !important;}
 .button {cursor: pointer;}
