@@ -93,6 +93,7 @@ frontvideo.appendChild(front_mp4);
 frontvideo.appendChild(front_ogg);
 
 frontvideo.load();
+
 /**
  * enablebuttons function.
  * Fades out video and enables back and forward buttons
@@ -225,9 +226,6 @@ var initVideo = function() {
 	useVideo = document.getElementById("layer1video");
 	videojq = $("#video");
 	
-	//var duration = parseInt(basevideo.duration);
-	//basevideo.addEventListener('loadeddata', playInit);
-	//TweenMax.fromTo(basevideo, duration, {currentTime:0}, {currentTime:duration, ease:Linear.easeNone, onComplete:enablebuttons});
 	setTimeout(function() {
 		$('#placeholder').hide();
 		basevideo.play();
