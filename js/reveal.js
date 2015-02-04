@@ -19,20 +19,20 @@ function Reveal(opts) {
 		console.log('[reveal.js] '+str);
 	};
 	this.resize = function(init) {
-		var videoLeft = $('#video').offset().left;
-		var videoTop = $('#video').offset().top;
-		var videoHeight = $('#video').height();
-		var videoWidth = $('#video').width();
+		var videoLeft = $('#video1').offset().left;
+		var videoTop = $('#video1').offset().top;
+		var videoHeight = $('#video1').height();
+		var videoWidth = $('#video1').width();
 		var windowHeight = $(window).height();
 		var windowWidth = $(window).width();
 		
-		$('#video').css({
+		$('#video1,#video2').css({
 			top: ((windowHeight-videoHeight)/2)+"px"
 		});
 		
 		$('#blackbar.bottom').css({
-			top: init ? windowHeight-(((windowHeight-videoHeight)/2)) + "px" : videoTop+videoHeight-1+"px",
-			height: init ? ((windowHeight-videoHeight)/2)+"px" : windowHeight-videoHeight+"px",
+			top: windowHeight-(((windowHeight-videoHeight)/2)) + "px",
+			height: ((windowHeight-videoHeight)/2)+"px",
 		});
 		
 		$('#blackbar.top').css({
