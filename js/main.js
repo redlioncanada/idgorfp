@@ -24,6 +24,8 @@ $('#video0').on('click', function() {
 	hideVideoOverlay();
 });
 
+
+
 $(document).ready(function() {
 	initVideo();
 	resize(true);
@@ -36,15 +38,16 @@ $(window).on('resize', function(){
 
 function resize(init) {
 	if (typeof init == 'undefied') init = false;
-	var videoLeft = $('#video1').offset().left;
-	var videoTop = $('#video1').offset().top;
-	var videoHeight = $('#video1').height();
-	var videoWidth = $('#video1').width();
 	var windowHeight = $(window).height();
 	var windowWidth = $(window).width();
+	var videoLeft = $('#video1').offset().left;
+	var videoTop = $('#video1').offset().top;
+	var videoHeight = windowWidth / (1.777777777777777);
+	var videoWidth = $('#video1').width();
 	var newVideoTop = ((windowHeight-videoHeight)/2);
+	console.log('wh:'+windowHeight+',ww:'+windowWidth+",vh:"+videoHeight+',vw:'+videoWidth);
 	
-	$('#video1,#video2,#placeholder').css({
+	$('#video1,#video2,#video3,#placeholder').css({
 		top: newVideoTop+"px"
 	});
 	
