@@ -170,12 +170,14 @@ var disableButtons = function(fade,hide,time) {
 	if (window.buttonsDisabled && !hide) return;
 	////console.log('disable buttons,fade:'+fade+',hide:'+hide);
 	window.buttonsDisabled = true;
+
 	if (typeof hide == 'undefined') hide = false;
 	if (typeof fade == 'undefined') fade = false;
 	if (typeof time == 'undefined') time = 400;
 	if ($('.button').eq(0).css('opacity') == 1 && !$('.button').eq(0).is(':animated') || hide) {
 		$('#caseOverlays img').animate({'opacity':0},time, function() {
 			$(this).css('display','none');
+			$('#clickzone').css('display','none');
 		});
 		if (hide || fade) $('.button').css('cursor','default');
 		if (hide) {$('.button').stop(true,true).animate({'opacity':0},time); return;}
