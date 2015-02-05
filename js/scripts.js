@@ -117,13 +117,13 @@ front_mp4.type = "video/mp4";
 front_mp4.src = forwardFolder + videoList[videoIndex+1] + ".mp4";
 
 var front_ogg = document.createElement('source');
-front_ogg.type="video/ogg"
+front_ogg.type="video/ogg";
 front_ogg.src = forwardFolder + videoList[videoIndex] + ".ogg";
 
 frontvideo.appendChild(front_mp4);
 frontvideo.appendChild(front_ogg);
-
 frontvideo.load();
+
 /**
  * enableButtons function.
  * Fades out video and enables back and forward buttons
@@ -137,7 +137,7 @@ var enableButtons = function(fade,time) {
 	if (!window.buttonsDisabled || window.end) return;
 	if (typeof fade == 'undefined') fade = false;
 	if (typeof time == 'undefined') time = 400;
-	////console.log('enableButtons,fade:'+fade);
+
 	window.buttonsDisabled = false;
 	useVideo.removeEventListener("ended", useVideoHandler);
 	if ($('.button').eq(0).css('opacity') != 1 && !$('.button').eq(0).is(':animated') && fade) {
@@ -168,7 +168,7 @@ var enableButtons = function(fade,time) {
  */
 var disableButtons = function(fade,hide,time) {
 	if (window.buttonsDisabled && !hide) return;
-	////console.log('disable buttons,fade:'+fade+',hide:'+hide);
+
 	window.buttonsDisabled = true;
 
 	if (typeof hide == 'undefined') hide = false;
@@ -215,8 +215,8 @@ function reorderVideos(direct) {
 		videoIndex = 0;
 	}
 	if (videoList[videoIndex] == "EndVid") {
-		// videoIndex = videoList.length - 1;
 		window.ended = true;
+		changeVolume(30, 1000);
 		disableButtons(false,true);
 	} else {
 		disableButtons();
@@ -245,7 +245,6 @@ function reorderVideos(direct) {
 	if (direct < 0) { 
 		videoIndex--;
 	}
-	//////console.log("Backvideo: "+backvideo.src+" current video: "+videosrc.src+" forward Video: "+frontvideo.src);
 }
 
 /**
@@ -302,16 +301,16 @@ var backwardClick = function() {
  */
 var initVideo = function() {
 	videosrc = document.getElementById("mp4_src");
-	oggsrc = document.getElementById("ogg_src")
+	oggsrc = document.getElementById("ogg_src");
 	useVideo = document.getElementById("layer1video");
 	videojq = $("#video");
+	changeVolume(20, 100);
 	
 	//var duration = parseInt(basevideo.duration);
 	//basevideo.addEventListener('loadeddata', playInit);
 	//TweenMax.fromTo(basevideo, duration, {currentTime:0}, {currentTime:duration, ease:Linear.easeNone, onComplete:enablebuttons});
 	setTimeout(function() {
 		useVideo.play();
-		//////console.log("first video played");
 		useVideo.addEventListener("ended", useVideoHandler);
 		$('#layer0video, #layer1video').attr('poster','');
 	}, 700);
@@ -325,6 +324,7 @@ var initVideo = function() {
  */
 var showVideoOverlay = function() {
 	$('#video3').css('display','block').animate({'opacity':1},400);
+	changeVolume(0, 1000);
 	$('#rl').animate({'opacity':0},200, function() {
 		$('#rl').css('display','none');
 		$('#close').delay(100).animate({'opacity':1},400).css('display','block');
@@ -348,8 +348,9 @@ var hideVideoOverlay = function() {
 		$('#rl').delay(100).animate({'opacity':1},400).css('display','block');
 	});
 	overlayVideo.pause();
+	changeVolume(20, 1000);
 };
-
+	
 /**
  * overlayVideoHandler function.
  * called on video end, closes the overlay
