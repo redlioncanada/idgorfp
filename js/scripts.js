@@ -136,13 +136,15 @@ frontvideo.load();
  * @return void
  */
 var enableButtons = function(fade) {
-	if (!window.buttonsDisabled || ended) return;
+	if (!window.buttonsDisabled) return;
 	if (typeof fade == 'undefined') fade = false;
 	console.log('enableButtons,fade:'+fade);
 	window.buttonsDisabled = false;
 	useVideo.removeEventListener("ended", useVideoHandler);
 	if ($('.button').eq(0).css('opacity') != 1 && fade) {
-		$('.button').animate({'opacity':1},0.4);
+		$('.button').animate({'opacity':1},0.4, function(){
+			$(this).css('cursor','pointer');
+		});
 	}
 };
 
@@ -164,6 +166,7 @@ var disableButtons = function(fade,hide) {
 	if ($('.button').eq(0).css('opacity') == 1 || hide) {
 		if (hide) {$('.button').animate({'opacity':0},0.4); return;}
 		if (fade) $('.button').animate({'opacity':0.25},0.4);
+		if (hide || fade) $('.button').css('cursor','default');
 	}
 };
 
