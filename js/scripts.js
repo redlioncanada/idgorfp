@@ -164,7 +164,7 @@ function reorderVideos(direct) {
 	if (videoIndex < 0) {
 		videoIndex = 0;
 	}
-	if (videoIndex == videoList.length - 1) {
+	if (videoList[videoIndex] == "EndVid") {
 		// videoIndex = videoList.length - 1;
 		$(".button,#pdf").fadeOut();
 	}

@@ -1,4 +1,4 @@
-window.disableButtons = false;
+window.disableButtons = true;
 
 var opts = {
 	images: ["section1","section2","section3","section4","section5","section5"],
