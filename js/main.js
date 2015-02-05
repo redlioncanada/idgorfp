@@ -3,15 +3,12 @@ window.ended = false;
 
 $('#prev').on('click', function() {
 	if (!window.buttonsDisabled) {
-		disableButtons(true,false);
 		backwardClick();
 	}
 });
 
 $('#next').on('click', function() {
 	if (!window.buttonsDisabled) {
-		////console.log("next clicked");
-		disableButtons(true,false);
 		forwardClick();
 	}
 });

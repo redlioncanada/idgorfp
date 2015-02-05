@@ -193,7 +193,10 @@ var disableButtons = function(fade,hide,time) {
  * @return void
  */
 function reorderVideos(direct) {
+	if (videoList[videoIndex] == "01_BookOpen" && direct == -1 || videoList[videoIndex] == "EndVid" && direct == 1) return;
 	
+	disableButtons(true,false);
+
 	if (videoLayer == 0) {
 		videoLayer = 1;
 	} else {
@@ -205,7 +208,7 @@ function reorderVideos(direct) {
 	useogg = document.getElementById("ogg_src"+videoLayer);
 	
 	if (direct > 0) { 
-		videoIndex++;
+		videoIndex++;	
 	}
 	
 	if (videoIndex < 0) {
