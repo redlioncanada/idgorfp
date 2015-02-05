@@ -334,9 +334,7 @@ var useVideoHandler = function(){
  * @return void
  */
 var showVideoOverlay = function() {
-	$('#video3').animate({'opacity':1},400,function(){
-		$(this).css('display','block')
-	});
+	$('#video3').css('display','block').animate({'opacity':1},400);
 	$('#rl').animate({'opacity':0},200, function() {
 		$('#rl').css('display','none');
 		$('#close').delay(100).animate({'opacity':1},400).css('display','block');
