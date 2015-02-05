@@ -355,8 +355,10 @@ var showVideoOverlay = function() {
  * @return void
  */
 var hideVideoOverlay = function() {
-	$('#video3').css('display','none').animate({'opacity':0},400);
-	$('#close').animate({'opacity':0},200, function() {
+	$('#video3').animate({'opacity':0},300,function(){
+		$(this).css('display','none')
+	});
+	$('#close').animate({'opacity':0},300, function() {
 		$('#close').css('display','none');
 		$('#rl').delay(100).animate({'opacity':1},400).css('display','block');
 	});
