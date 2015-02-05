@@ -316,3 +316,29 @@ var useVideoHandler = function(){
 		$('#pdf').animate({'opacity':1},200);
 	}
 };
+
+/**
+ * showVideoOverlay function.
+ * shows the popup video overlay
+ * 
+ * @return void
+ */
+var showVideoOverlay = function() {
+	$('#video0').animate({'opacity':1},0.4);
+	$('#close').animate({'opacity':1},0.4, function() {
+		$('#rl').fadeOut();
+	});
+};
+
+/**
+ * shideVideoOverlay function.
+ * hides the popup video overlay
+ * 
+ * @return void
+ */
+var hideVideoOverlay = function() {
+	$('#video0').animate({'opacity':0},0.4);
+	$('#close').animate({'opacity':0},0.4, function() {
+		$('#rl').fadeIn();
+	});
+};
