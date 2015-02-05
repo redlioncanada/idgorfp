@@ -100,7 +100,7 @@ back_mp4.type = "video/mp4";
 back_mp4.src = backwardFolder + reverseVideoList[videoIndex] + ".mp4";
 
 var back_ogg = document.createElement('source');
-back_ogg.type="video/ogg"
+back_ogg.type="video/ogg";
 back_ogg.src = backwardFolder + reverseVideoList[videoIndex] + ".ogg";
 
 backvideo.appendChild(back_mp4);
@@ -197,7 +197,7 @@ function reorderVideos(direct) {
 	
 	disableButtons(true,false);
 
-	if (videoLayer == 0) {
+	if (videoLayer === 0) {
 		videoLayer = 1;
 	} else {
 		videoLayer = 0;
@@ -255,7 +255,7 @@ function reorderVideos(direct) {
  * @return void
  */
 var playforward = function(event) {
-	if (videoLayer == 0) {
+	if (videoLayer === 0) {
 		setTimeout(function() {
 			$("#layer1video").fadeOut(500);
 		}, 500);
@@ -303,7 +303,6 @@ var initVideo = function() {
 	videosrc = document.getElementById("mp4_src");
 	oggsrc = document.getElementById("ogg_src");
 	useVideo = document.getElementById("layer1video");
-	videojq = $("#video");
 	changeVolume(20, 100);
 	
 	//var duration = parseInt(basevideo.duration);
@@ -341,7 +340,7 @@ var showVideoOverlay = function() {
  */
 var hideVideoOverlay = function() {
 	$('#video3').animate({'opacity':0},300,function(){
-		$(this).css('display','none')
+		$(this).css('display','none');
 	});
 	$('#close').animate({'opacity':0},300, function() {
 		$('#close').css('display','none');
@@ -375,4 +374,19 @@ var useVideoHandler = function(){
 	} else {
 		$('#pdf').animate({'opacity':1},400);
 	}
+};
+
+/**
+ * changeVolume function.
+ * changes the volume of the music
+ * 
+ * @param int newVolume
+ * @param int time
+ * @return void
+ */
+var changeVolume = function(newVolume, time) {
+	if (typeof newVolume == 'undefined') return;
+	if (newVolume > 1 && newVolume <= 100) newVolume = newVolume/100;
+	if (typeof time == 'undefined') time = 1000;
+	$('#bgmusic').animate({volume: newVolume}, time);
 };
