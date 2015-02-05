@@ -342,7 +342,6 @@ var showVideoOverlay = function() {
 		$('#close').delay(100).animate({'opacity':1},400).css('display','block');
 		overlayVideo.play();
 	});
-	disableButtons();
 };
 
 /**
@@ -359,6 +358,5 @@ var hideVideoOverlay = function() {
 		$('#close').css('display','none');
 		$('#rl').delay(100).animate({'opacity':1},400).css('display','block');
 	});
-	enableButtons();
 	overlayVideo.pause();
 };
