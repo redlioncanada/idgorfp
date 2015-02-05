@@ -39,7 +39,8 @@ var videoList = [
 	"24To25",
 	"25To26",
 	"26To27",
-	"27To28"
+	"27To28",
+	"EndVid"
 ];
 var reverseVideoList = [
 	"01_BookOpenReverse",
@@ -144,8 +145,9 @@ function reorderVideos(direct) {
 	if (videoIndex < 0) {
 		videoIndex = 0;
 	}
-	if (videoIndex >= videoList.length) {
-		videoIndex = videoList.length - 1; 
+	if (videoIndex == videoList.length - 1) {
+		// videoIndex = videoList.length - 1;
+		$(".button").fadeOut();
 	}
 	
 	if (videoIndex >= 0 && videoIndex < videoList.length) {
