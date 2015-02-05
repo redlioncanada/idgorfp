@@ -140,7 +140,7 @@ var enableButtons = function(fade,time) {
 	////console.log('enableButtons,fade:'+fade);
 	window.buttonsDisabled = false;
 	useVideo.removeEventListener("ended", useVideoHandler);
-	if ($('.button').eq(0).css('opacity') != 1 && fade) {
+	if ($('.button').eq(0).css('opacity') != 1 && !$('.button').eq(0).is(':animated') && fade) {
 		$('.button').animate({'opacity':1},time, function(){
 			$(this).css('cursor','pointer');
 		});
@@ -173,7 +173,7 @@ var disableButtons = function(fade,hide,time) {
 	if (typeof hide == 'undefined') hide = false;
 	if (typeof fade == 'undefined') fade = false;
 	if (typeof time == 'undefined') time = 400;
-	if ($('.button').eq(0).css('opacity') == 1) {
+	if ($('.button').eq(0).css('opacity') == 1 && !$('.button').eq(0).is(':animated')) {
 		if (hide || fade) $('.button').css('cursor','default');
 		if (hide) {$('.button').stop(true,true).animate({'opacity':0},time); return;}
 		if (fade) $('.button').stop(true,true).animate({'opacity':0.25},time);
