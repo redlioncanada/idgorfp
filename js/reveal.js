@@ -37,18 +37,17 @@ function Reveal(opts) {
 		});
 		
 		$('#illustrations').css({
-			top: (newVideoTop-(newVideoTop*0.03))+"px",
+			top: newVideoTop+"px",
 			height: videoHeight+"px",
-			left: -(windowWidth*.17)
 		});
 		
 		$('#blackbar.bottom').css({
-			top: windowHeight-(((windowHeight-videoHeight)/2)) + "px",
-			height: ((windowHeight-videoHeight)/2)+"px",
+			top: windowHeight-newVideoTop + "px",
+			height: newVideoTop+"px",
 		});
 		
 		$('#blackbar.top').css({
-			height: ((windowHeight-videoHeight)/2)+"px"
+			height: newVideoTop+"px"
 		});
 		
 		$('#buttons>.button').css({
@@ -67,7 +66,7 @@ function Reveal(opts) {
 		if (!init && !$('#logo').is(':animated') && !this.ended) {
 			if (windowWidth < 750 || windowHeight < 350) {
 				$('#logo,#pdf').animate({'opacity':0},200)
-			} else {
+			} else {	
 				$('#logo,#pdf').animate({'opacity':1},200)
 			}
 		}
@@ -90,6 +89,7 @@ function Reveal(opts) {
 }
 
 Reveal.prototype.Next = function() {
+this.log(this.lastGroup);	
 	if (this.lastGroup >= this.sections[this.sections.length-1]-1) {
 		this.end();
 		return;

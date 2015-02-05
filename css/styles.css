@@ -59,8 +59,8 @@ body > div {position: absolute; top:0; width:100%; height: 100%}
 #buttons {z-index: 100; width:100%; height:0;}
 #buttons>img {position: absolute;}
 #buttons>.button {top: 450px;}
-#illustrations {z-index: 50; height: 100%; width: inherit; position: absolute;}
-#illustrations>img {position:absolute; z-index:1; height: 103%; left: -17%;}
+#illustrations {z-index: 50; height: 100%; width: 100%; position: absolute; left: 0;}
+#illustrations>img {position:absolute; z-index:1; height: inherit; height: inherit; left: 0;}
 #illustrations>img.white {z-index:2;}
 #logo {position: absolute; top: 200px; right: 75px; width: auto; height: auto; z-index: 100;}
 #logo img {width: 33px;}
