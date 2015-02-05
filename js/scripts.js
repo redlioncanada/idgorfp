@@ -250,11 +250,11 @@ var playforward = function(event) {
 	if (videoLayer == 0) {
 		setTimeout(function() {
 			$("#layer1video").fadeOut(500);
-		}, 100);
+		}, 500);
 	} else {
 		setTimeout(function() {
 			$("#layer1video").fadeIn(500);
-		}, 100);
+		}, 500);
 	}
 	useVideo.play(); 
 	useVideo.addEventListener("ended", useVideoHandler);
