@@ -341,7 +341,7 @@ var useVideoHandler = function(){
  * @return void
  */
 var showVideoOverlay = function() {
-	$('#video2').animate({'opacity':1},400);
+	$('#video3').animate({'opacity':1},400);
 	$('#rl').animate({'opacity':0},200, function() {
 		$('#rl').css('display','none');
 		$('#close').delay(100).animate({'opacity':1},400).css('display','block');
@@ -355,7 +355,7 @@ var showVideoOverlay = function() {
  * @return void
  */
 var hideVideoOverlay = function() {
-	$('#video2').animate({'opacity':0},400);
+	$('#video3').animate({'opacity':0},400);
 	$('#close').animate({'opacity':0},200, function() {
 		$('#close').css('display','none');
 		$('#rl').delay(100).animate({'opacity':1},400).css('display','block');
