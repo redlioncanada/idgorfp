@@ -2,7 +2,7 @@
 var videosrc = null;
 var oggsrc = null;
 var videojq = null;
-var forwardFolder = "video/forward/";
+var forwardFolder = "video/frontH264/";
 var backwardFolder = "video/backward/";
 var caseFolder = "video/case/";
 var videoLayer = 1;
@@ -348,12 +348,9 @@ var useVideoHandler = function(){
  * @return void
  */
 var showVideoOverlay = function() {
-<<<<<<< HEAD
-	$('#video3').animate({'opacity':1},400);
-	disableButtons(true,true);
-=======
 	$('#video3').css('display','block').animate({'opacity':1},400);
->>>>>>> FETCH_HEAD
+	disableButtons(true,true);
+	
 	$('#rl').animate({'opacity':0},200, function() {
 		$('#rl').css('display','none');
 		$('#close').delay(100).animate({'opacity':1},400).css('display','block');
