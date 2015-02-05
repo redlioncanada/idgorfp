@@ -89,7 +89,6 @@ function Reveal(opts) {
 }
 
 Reveal.prototype.Next = function() {
-this.log(this.lastGroup);	
 	/*if (this.lastGroup >= this.sections[this.sections.length-1]-1) {
 		this.end();
 		return;

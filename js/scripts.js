@@ -127,16 +127,38 @@ frontvideo.appendChild(front_ogg);
 
 frontvideo.load();
 /**
- * enablebuttons function.
+ * enableButtons function.
  * Fades out video and enables back and forward buttons
  * 
  * @access public
  * @return void
  */
-function enablebuttons() {
-	window.disableButtons = false;
-	useVideo.removeEventListener("ended", enablebuttons);
-}
+var enableButtons = function() {
+	if (!window.buttonsDisabled) return;
+	window.buttonsDisabled = false;
+	useVideo.removeEventListener("ended", enableButtons);
+	if ($('.button').css('opacity') != 1) {
+		$('.button').removeClass('disable').fadeIn();
+	}
+};
+
+/**
+ * disableButtons function.
+ * Fades out video and hides and/or disables back and forward buttons
+ * 
+ * @access public
+ * @optional param bool fade
+ * @optional param bool hide
+ * @return void
+ */
+var disableButtons = function(fade,hide) {
+	if (window.buttonsDisabled && !fade && !hide) return;
+	window.buttonsDisabled = true;
+	if (typeof hide == 'undefined') hide = false;
+	if (typeof fade == 'undefined') fade = false;
+	if (hide) {$('.button').fadeOut(); return;}
+	if (fade) $('.button').addClass('disable');
+};
 
 /**
  * reorderVideos function.
@@ -166,7 +188,9 @@ function reorderVideos(direct) {
 	}
 	if (videoList[videoIndex] == "EndVid") {
 		// videoIndex = videoList.length - 1;
-		$(".button,#pdf").fadeOut();
+		disableButtons(true,false);
+	} else {
+		enableButtons();
 	}
 	
 	if (videoIndex >= 0 && videoIndex < videoList.length) {
@@ -213,7 +237,7 @@ var playforward = function(event) {
 		}, 300);
 	}
 	useVideo.play(); 
-	useVideo.addEventListener("ended", enablebuttons);
+	useVideo.addEventListener("ended", enableButtons);
 	useVideo.removeEventListener("loadeddata", playforward);
 };
 
@@ -259,7 +283,7 @@ var initVideo = function() {
 	setTimeout(function() {
 		useVideo.play();
 		//console.log("first video played");
-		useVideo.addEventListener("ended", enablebuttons);
+		useVideo.addEventListener("ended", enableButtons);
 		$('#layer0video').attr('poster','');
 	}, 700);
 };

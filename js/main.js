@@ -1,4 +1,4 @@
-window.disableButtons = true;
+window.buttonsDisabled = true;
 
 var opts = {
 	images: ["section1","section2","section3","section4","section5","section5"],
@@ -11,17 +11,17 @@ var reveal = new Reveal(opts);
 reveal.Grayscale();
 
 $('#prev').on('click', function() {
-	if (!window.disableButtons) {
-		window.disableButtons = true;
+	if (!window.buttonsDisabled) {
+		disableButtons();
 		//reveal.Previous();
 		backwardClick();
 	}
 });
 
 $('#next').on('click', function() {
-	if (!window.disableButtons) {
+	if (!window.buttonsDisabled) {
 		console.log("next clicked");
-		window.disableButtons = true;
+		disableButtons();
 		//reveal.Next();
 		forwardClick();
 	}

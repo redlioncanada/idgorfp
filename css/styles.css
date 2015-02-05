@@ -51,7 +51,11 @@ body {
 }
 
 img {
-    -webkit-transition:-webkit-filter 0.5s ease-in-out;
+    transition: opacity 0.4s ease-out;
+    -ms-transition: opacity 0.4s ease-out;
+    -moz-transition: opacity 0.4s ease-out;
+    -webkit-transition: opacity 0.4s ease-out;
+	opacity: 1;
 }
 
 body {min-width:960px; overflow:hidden;}
@@ -79,3 +83,7 @@ img#indigo {width: 196px; position: relative; top: 420px; z-index:0;}
 .hidden {opacity: 0;}
 .button {cursor: pointer;}
 img.center {display: block; margin: 0 auto;}
+img.disable { 
+	opacity: 0.25;
+	cursor: default;
+}
