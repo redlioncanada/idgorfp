@@ -35,14 +35,26 @@ $(window).on('resize', function(){
 //setTimeout(function(){showVideoOverlay();},2000);
 
 function resize(init) {
-	if (typeof init == 'undefied') init = false;
+	if (typeof init == 'undefined') init = false;
 	var windowHeight = $(window).height();
 	var windowWidth = $(window).width();
-	var videoLeft = $('#video1').offset().left;
-	var videoTop = $('#video1').offset().top;
+	var videoWidth = $('#layer0video').width();
+	var bookWidth = videoWidth * .5113356459918;
+	var deadZoneLeft = videoWidth * .23767995016545;
+	var deadZoneRight = videoWidth * .24767995016545;
 	var videoHeight = windowWidth / (16/9);
-	var videoWidth = $('#video1').width();
+	var deadZoneTop = videoHeight * .13;
+	var deadZoneBottom = videoHeight * .13;
+	var videoLeft = $('#layer0video').offset().left;
+	var videoTop = $('#layer0video').offset().top;
 	var newVideoTop = ((windowHeight-videoHeight)/2);
+
+	$('#clickzone').css({
+		width: (videoWidth-deadZoneLeft-deadZoneRight)+"px",
+		height: (videoHeight-deadZoneTop-deadZoneBottom)+"px",
+		left: videoLeft+deadZoneLeft+"px",
+		top: newVideoTop+deadZoneTop+"px"
+	});
 	
 	$('#video1,#video2,#video3,#placeholder').css({
 		top: newVideoTop+"px"
@@ -74,8 +86,7 @@ function resize(init) {
 		if (windowWidth < 750 || windowHeight < 350) {
 			$('#logo').animate({'opacity':0},200)
 		} else {	
-			if (!window.ended) $('#logo').animate({'opacity':1},200)
-			else $('#logo,#pdf').animate({'opacity':1},200)
+			$('#logo,#pdf').animate({'opacity':1},200)
 		}
 	}
 };

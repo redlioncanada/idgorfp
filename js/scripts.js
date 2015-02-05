@@ -15,26 +15,6 @@ var overlayVideo = document.getElementById("layer2video");
 var overlaymp4 = document.getElementById("mp4_src2");
 var overlayogg = document.getElementById("ogg_src2");
 
-var videoWidth = $('#layer0video').width();
-var bookWidth = videoWidth * .5113356459918;
-var deadZoneLeft = videoWidth * .23767995016545;
-var deadZoneRight = deadZoneLeft;
-var videoHeight = $('#layer0video').height();
-var deadZoneTop = videoHeight * .11245944849959;
-var deadZoneBottom = videoHeight * .08333333333333;
-var videoLeft = $('#layer0video').offset().left;
-var videoTop = $('#layer0video').offset().top;
-var windowHeight = $(window).height();
-var windowWidth = $(window).width();
-
-$('#clickzone').css({
-	width: (videoWidth-deadZoneLeft-deadZoneRight)+"px",
-	height: ((videoWidth-deadZoneLeft-deadZoneRight)/(1.1117))+"px",
-	left: videoLeft+deadZoneLeft+"px",
-	top: videoTop+deadZoneTop+"px",
-	zIndex: 100
-});
-
 // Set video list and index vars
 var videoList = [
 	"01_BookOpen",
@@ -65,8 +45,6 @@ var videoList = [
 	"25To26",
 	"26To27",
 	"27To28",
-	"28To29",
-	"29To30",
 	"EndVid"
 ];
 var reverseVideoList = [
@@ -170,7 +148,6 @@ var enableButtons = function(fade,time) {
 		overlaymp4.src = caseFolder + videoList[videoIndex] + '.mp4';
 		overlayogg.src = caseFolder + videoList[videoIndex] + '.ogg';
 		overlayVideo.load();
-		$('#clickzone').addClass("button");
 		$('#clickzone').bind('click', function(e) {
 			showVideoOverlay();
 		});
@@ -200,7 +177,6 @@ var disableButtons = function(fade,hide,time) {
 		if (fade) $('.button').stop(true,true).animate({'opacity':0.25},time);
 	}
 	$('#clickzone').unbind('click');
-	$('#clickzone').removeClass("button");
 };
 
 /**
@@ -360,9 +336,9 @@ var showVideoOverlay = function() {
 	$('#rl').animate({'opacity':0},200, function() {
 		$('#rl').css('display','none');
 		$('#close').delay(100).animate({'opacity':1},400).css('display','block');
+		overlayVideo.play();
 	});
 	disableButtons();
-	overlayVideo.play();
 };
 
 /**
