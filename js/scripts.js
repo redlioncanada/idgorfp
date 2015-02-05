@@ -137,7 +137,7 @@ var enableButtons = function(fade,time) {
 	if (!window.buttonsDisabled || window.end) return;
 	if (typeof fade == 'undefined') fade = false;
 	if (typeof time == 'undefined') time = 400;
-	console.log('enableButtons,fade:'+fade);
+	////console.log('enableButtons,fade:'+fade);
 	window.buttonsDisabled = false;
 	useVideo.removeEventListener("ended", useVideoHandler);
 	if ($('.button').eq(0).css('opacity') != 1 && fade) {
@@ -168,7 +168,7 @@ var enableButtons = function(fade,time) {
  */
 var disableButtons = function(fade,hide,time) {
 	if (window.buttonsDisabled && !hide) return;
-	console.log('disable buttons,fade:'+fade+',hide:'+hide);
+	////console.log('disable buttons,fade:'+fade+',hide:'+hide);
 	window.buttonsDisabled = true;
 	if (typeof hide == 'undefined') hide = false;
 	if (typeof fade == 'undefined') fade = false;
@@ -212,6 +212,7 @@ function reorderVideos(direct) {
 		disableButtons(false,true);
 	} else {
 		disableButtons();
+		backvideo.load();
 	}
 	
 	if (videoIndex >= 0 && videoIndex < videoList.length) {
@@ -230,14 +231,13 @@ function reorderVideos(direct) {
 	
 	frontvideo.load();
 	useVideo.load();
-	backvideo.load();
 	
 	useVideo.addEventListener('loadeddata', playforward);
 		
 	if (direct < 0) { 
 		videoIndex--;
 	}
-	//console.log("Backvideo: "+backvideo.src+" current video: "+videosrc.src+" forward Video: "+frontvideo.src);
+	//////console.log("Backvideo: "+backvideo.src+" current video: "+videosrc.src+" forward Video: "+frontvideo.src);
 }
 
 /**
@@ -303,7 +303,7 @@ var initVideo = function() {
 	//TweenMax.fromTo(basevideo, duration, {currentTime:0}, {currentTime:duration, ease:Linear.easeNone, onComplete:enablebuttons});
 	setTimeout(function() {
 		useVideo.play();
-		//console.log("first video played");
+		//////console.log("first video played");
 		useVideo.addEventListener("ended", useVideoHandler);
 		$('#layer0video, #layer1video').attr('poster','');
 	}, 700);
@@ -357,5 +357,5 @@ var hideVideoOverlay = function() {
 		$('#rl').delay(100).animate({'opacity':1},400).css('display','block');
 	});
 	enableButtons();
-	overlayVideo.stop();
+	overlayVideo.pause();
 };

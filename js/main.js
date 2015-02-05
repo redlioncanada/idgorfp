@@ -10,7 +10,7 @@ $('#prev').on('click', function() {
 
 $('#next').on('click', function() {
 	if (!window.buttonsDisabled) {
-		console.log("next clicked");
+		////console.log("next clicked");
 		disableButtons(true,false);
 		forwardClick();
 	}
