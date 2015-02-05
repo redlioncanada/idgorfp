@@ -145,10 +145,6 @@ function reorderVideos(direct) {
 	if (videoIndex < 0) {
 		videoIndex = 0;
 	}
-	if (videoIndex == videoList.length - 1) {
-		// videoIndex = videoList.length - 1;
-		$(".button").fadeOut();
-	}
 	
 	if (videoIndex >= 0 && videoIndex < videoList.length) {
 		back_mp4.src = backwardFolder + reverseVideoList[videoIndex] + ".mp4";

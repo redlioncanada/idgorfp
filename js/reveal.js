@@ -7,6 +7,7 @@ function Reveal(opts) {
 	this.sections = opts.sections;
 	this.myDivId = opts.div;
 	this.path = opts.path;
+	this.ended = false;
 	this.Reset();
 	
 	//private methods
@@ -17,6 +18,10 @@ function Reveal(opts) {
 	};
 	this.log = function(str) {
 		console.log('[reveal.js] '+str);
+	};
+	this.end = function() {
+		$(".button,#pdf").fadeOut();
+		this.ended = true;
 	};
 	this.resize = function(init) {
 		var videoLeft = $('#video1').offset().left;
@@ -59,8 +64,8 @@ function Reveal(opts) {
 			top: ($('#blackbar.top').height() + $('#logo').height() + 10) + "px"
 		});
 		
-		if (!init && !$('#logo').is(':animated')) {
-			if (windowWidth < 750 || windowHeight < 600) {
+		if (!init && !$('#logo').is(':animated') && !this.ended) {
+			if (windowWidth < 750 || windowHeight < 350) {
 				$('#logo,#pdf').animate({'opacity':0},200)
 			} else {
 				$('#logo,#pdf').animate({'opacity':1},200)
@@ -85,7 +90,10 @@ function Reveal(opts) {
 }
 
 Reveal.prototype.Next = function() {
-	if (this.lastGroup >= this.sections[this.sections.length-1]-1) return;
+	if (this.lastGroup >= this.sections[this.sections.length-1]-1) {
+		this.end();
+		return;
+	}
 	if (this.sections.indexOf(++this.lastGroup) == -1) return;
 	
 	var self = this;
@@ -147,4 +155,5 @@ Reveal.prototype.Reset = function() {
 	this.lastGroup = -1;
 	this.lastImage = -1;
 	this.grayscale = false;
+	this.ended = false;
 }

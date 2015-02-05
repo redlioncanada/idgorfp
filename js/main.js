@@ -1,9 +1,10 @@
 window.disableButtons = false;
 
+//click 27 is the end
 var opts = {
 	images: ["section1","section2","section3","section4","section5"],
 	opacity: [0.3, 0.3, 0.3, 0.7, 1],
-	sections: [3, 5, 7, 16, 18],
+	sections: [3, 5, 7, 11, 19],
 	div: "illustrations",
 	path: "images/illustration/"
 };
