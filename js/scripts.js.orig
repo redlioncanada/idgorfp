@@ -2,7 +2,7 @@
 var videosrc = null;
 var oggsrc = null;
 var videojq = null;
-var forwardFolder = "video/forward/";
+var forwardFolder = "video/frontH264/";
 var backwardFolder = "video/backward/";
 var caseFolder = "video/case/";
 var videoLayer = 1;
@@ -349,20 +349,20 @@ var useVideoHandler = function(){
  */
 var showVideoOverlay = function() {
 <<<<<<< HEAD
-	$('#video3').animate({'opacity':1},400);
-	disableButtons(true,true);
+	$('#video3').animate({'opacity':1},400,function(){
+		$(this).css('display','block')
+	});
 =======
 	$('#video3').css('display','block').animate({'opacity':1},400);
->>>>>>> FETCH_HEAD
+	disableButtons(true,true);
+	
+>>>>>>> 4f16a2263aae2a81d154246e81166049a77cb367
 	$('#rl').animate({'opacity':0},200, function() {
 		$('#rl').css('display','none');
 		$('#close').delay(100).animate({'opacity':1},400).css('display','block');
-		$('#close').bind('click', function(e) {
-			e.preventDefault();
-			hideVideoOverlay();
-		})
-		overlayVideo.play();
 	});
+	disableButtons();
+	overlayVideo.play();
 };
 
 /**
@@ -372,23 +372,13 @@ var showVideoOverlay = function() {
  * @return void
  */
 var hideVideoOverlay = function() {
-<<<<<<< HEAD
 	$('#video3').animate({'opacity':0},300,function(){
 		$(this).css('display','none')
 	});
 	$('#close').animate({'opacity':0},300, function() {
-=======
-<<<<<<< HEAD
-	$('#close').unbind('click');
-	overlayVideo.stop();
-	$('#video3').animate({'opacity':0},400);
-=======
-	$('#video3').css('display','none').animate({'opacity':0},400);
->>>>>>> FETCH_HEAD
-	$('#close').animate({'opacity':0},200, function() {
->>>>>>> 2fbcf73488b5bdf697cb2d845ec6810c428c222b
 		$('#close').css('display','none');
 		$('#rl').delay(100).animate({'opacity':1},400).css('display','block');
-		enableButtons(true);
 	});
+	enableButtons();
+	overlayVideo.stop();
 };
