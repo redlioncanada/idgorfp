@@ -12,7 +12,7 @@ reveal.Grayscale();
 
 $('#prev').on('click', function() {
 	if (!window.buttonsDisabled) {
-		disableButtons();
+		disableButtons(true,false);
 		//reveal.Previous();
 		backwardClick();
 	}
@@ -21,7 +21,7 @@ $('#prev').on('click', function() {
 $('#next').on('click', function() {
 	if (!window.buttonsDisabled) {
 		console.log("next clicked");
-		disableButtons();
+		disableButtons(true,false);
 		//reveal.Next();
 		forwardClick();
 	}

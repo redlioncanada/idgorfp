@@ -5,6 +5,7 @@ var videojq = null;
 var forwardFolder = "video/forward/";
 var backwardFolder = "video/backward/";
 var videoLayer = 1;
+var ended = false;
 
 var useVideo = null;
 var usemp4 = null;
@@ -131,14 +132,17 @@ frontvideo.load();
  * Fades out video and enables back and forward buttons
  * 
  * @access public
+ * @optional param bool fade
  * @return void
  */
-var enableButtons = function() {
-	if (!window.buttonsDisabled) return;
+var enableButtons = function(fade) {
+	if (!window.buttonsDisabled || ended) return;
+	if (typeof fade == 'undefined') fade = false;
+	console.log('enableButtons,fade:'+fade);
 	window.buttonsDisabled = false;
-	useVideo.removeEventListener("ended", enableButtons);
-	if ($('.button').css('opacity') != 1) {
-		$('.button').removeClass('disable').fadeIn();
+	useVideo.removeEventListener("ended", useVideoHandler);
+	if ($('.button').eq(0).css('opacity') != 1 && fade) {
+		$('.button').animate({'opacity':1},0.4);
 	}
 };
 
@@ -153,11 +157,14 @@ var enableButtons = function() {
  */
 var disableButtons = function(fade,hide) {
 	if (window.buttonsDisabled && !fade && !hide) return;
+	console.log('disable buttons,fade:'+fade+',hide:'+hide);
 	window.buttonsDisabled = true;
 	if (typeof hide == 'undefined') hide = false;
 	if (typeof fade == 'undefined') fade = false;
-	if (hide) {$('.button').fadeOut(); return;}
-	if (fade) $('.button').addClass('disable');
+	if ($('.button').eq(0).css('opacity') == 1 || hide) {
+		if (hide) {$('.button').animate({'opacity':0},0.4); return;}
+		if (fade) $('.button').animate({'opacity':0.25},0.4);
+	}
 };
 
 /**
@@ -188,9 +195,10 @@ function reorderVideos(direct) {
 	}
 	if (videoList[videoIndex] == "EndVid") {
 		// videoIndex = videoList.length - 1;
-		disableButtons(true,false);
+		ended = true;
+		disableButtons(false,true);
 	} else {
-		enableButtons();
+		disableButtons();
 	}
 	
 	if (videoIndex >= 0 && videoIndex < videoList.length) {
@@ -237,7 +245,7 @@ var playforward = function(event) {
 		}, 300);
 	}
 	useVideo.play(); 
-	useVideo.addEventListener("ended", enableButtons);
+	useVideo.addEventListener("ended", function(){enableButtons(true)});
 	useVideo.removeEventListener("loadeddata", playforward);
 };
 
@@ -283,7 +291,17 @@ var initVideo = function() {
 	setTimeout(function() {
 		useVideo.play();
 		//console.log("first video played");
-		useVideo.addEventListener("ended", enableButtons);
+		useVideo.addEventListener("ended", useVideoHandler);
 		$('#layer0video').attr('poster','');
 	}, 700);
+};
+
+/**
+ * useVideoHandler function.
+ * called on video end, referenced to remove it on end
+ * 
+ * @return void
+ */
+var useVideoHandler = function(){
+	enableButtons(true);
 };
