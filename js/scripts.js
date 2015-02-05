@@ -159,6 +159,7 @@ var enableButtons = function(fade,time) {
 	
 	if ($.inArray(videoList[videoIndex],caseStudyVideos) != -1) {
 		$('#clickzone').bind('click', function(e) {
+			showVideoOverlay();
 			console.log("click");
 		});
 	}
@@ -314,7 +315,7 @@ var initVideo = function() {
 		useVideo.play();
 		//console.log("first video played");
 		useVideo.addEventListener("ended", useVideoHandler);
-		$('#layer0video').attr('poster','');
+		$('#layer0video, #layer1video').attr('poster','');
 	}, 700);
 };
 
@@ -331,4 +332,34 @@ var useVideoHandler = function(){
 	} else {
 		$('#pdf').animate({'opacity':1},200);
 	}
+};
+
+/**
+ * showVideoOverlay function.
+ * shows the popup video overlay
+ * 
+ * @return void
+ */
+var showVideoOverlay = function() {
+	console.log("showVideoOverlay");
+	$('#video3').animate({'opacity':1},0.4);
+	$('#close').animate({'opacity':1},0.4, function() {
+		$('#rl').fadeOut();
+		$(this).bind("click", function() {
+			hideVideoOverlay();
+		})
+	});
+};
+
+/**
+ * shideVideoOverlay function.
+ * hides the popup video overlay
+ * 
+ * @return void
+ */
+var hideVideoOverlay = function() {
+	$('#video3').animate({'opacity':0},0.4);
+	$('#close').animate({'opacity':0},0.4, function() {
+		$('#rl').fadeIn();
+	});
 };

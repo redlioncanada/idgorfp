@@ -66,16 +66,16 @@ body > div {position: absolute; top:0; width:100%; height: 100%}
 #illustrations {z-index: 50; height: 100%; width: 100%; position: absolute; left: 0;}
 #illustrations>img {position:absolute; z-index:1; height: inherit; height: inherit; left: 0;}
 #illustrations>img.white {z-index:2;}
-#logo {position: absolute; top: 200px; right: 75px; width: auto; height: auto; z-index: 100;}
-#logo img {width: 33px;}
+#logo {position: absolute; top: 53px; right: 108px; width: auto; height: auto; z-index: 100;}
+#logo img, #logo a {width: 33px; position: absolute;}
 #pdf {position: absolute; bottom: 200px; right: 80px; width: auto; height: 14px; z-index: 100;}
 #pdf img {height: 14px;}
 img#indigo {width: 196px; position: relative; top: 420px; z-index:0;}
 #next {right: 80px;}
 #prev {left: 80px;}
-#videowrapper {position: relative;}
+#videowrapper {position: absolute;}
 #video0,#video1,#video2,#placeholder {z-index: 1; height: auto; width: 100%; position: absolute;}
-#video0 {z-index: 10}
+#video0 {z-index: 10, background-color:white;}
 #video1 {z-index: 11;}
 #video2 {z-index: 12;}
 #blackbar {background-color:black; top:0; left:0; position:absolute; z-index: 1000;}

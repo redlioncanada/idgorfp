@@ -16,6 +16,10 @@ $('#next').on('click', function() {
 	}
 });
 
+$('#close').on('click', function() {
+	hideVideoOverlay();
+});
+
 $(document).ready(function() {
 	initVideo();
 	resize(true);
@@ -57,7 +61,7 @@ function resize(init) {
 	});
 	
 	$('#logo').css({
-		top: ($('#blackbar.top').height() + $('#logo').height() + 10) + "px"
+		top: ($('#blackbar.top').height() + $('#logo').height() + 53) + "px"
 	});
 	
 	if (!init && !$('#logo').is(':animated')) {
