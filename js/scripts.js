@@ -170,6 +170,7 @@ var enableButtons = function(fade,time) {
 		overlaymp4.src = caseFolder + videoList[videoIndex] + '.mp4';
 		overlayogg.src = caseFolder + videoList[videoIndex] + '.ogg';
 		overlayVideo.load();
+		$('#clickzone').addClass("button");
 		$('#clickzone').bind('click', function(e) {
 			showVideoOverlay();
 		});
@@ -199,6 +200,7 @@ var disableButtons = function(fade,hide,time) {
 		if (fade) $('.button').stop(true,true).animate({'opacity':0.25},time);
 	}
 	$('#clickzone').unbind('click');
+	$('#clickzone').removeClass("button");
 };
 
 /**
