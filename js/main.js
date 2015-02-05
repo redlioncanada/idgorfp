@@ -42,10 +42,9 @@ function resize(init) {
 	var windowWidth = $(window).width();
 	var videoLeft = $('#video1').offset().left;
 	var videoTop = $('#video1').offset().top;
-	var videoHeight = windowWidth / (1.777777777777777);
+	var videoHeight = windowWidth / (16/9);
 	var videoWidth = $('#video1').width();
 	var newVideoTop = ((windowHeight-videoHeight)/2);
-	console.log('wh:'+windowHeight+',ww:'+windowWidth+",vh:"+videoHeight+',vw:'+videoWidth);
 	
 	$('#video1,#video2,#video3,#placeholder').css({
 		top: newVideoTop+"px"
