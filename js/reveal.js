@@ -63,11 +63,11 @@ function Reveal(opts) {
 			top: ($('#blackbar.top').height() + $('#logo').height() + 10) + "px"
 		});
 		
-		if (!init && !$('#logo').is(':animated') && !this.ended) {
+		if (!init && !$('#logo').is(':animated')) {
 			if (windowWidth < 750 || windowHeight < 350) {
 				$('#logo,#pdf').animate({'opacity':0},200)
 			} else {	
-				$('#logo,#pdf').animate({'opacity':1},200)
+				if (videoList[videoIndex] !== "EndVid") $('#logo,#pdf').animate({'opacity':1},200)
 			}
 		}
 	};
@@ -90,10 +90,10 @@ function Reveal(opts) {
 
 Reveal.prototype.Next = function() {
 this.log(this.lastGroup);	
-	if (this.lastGroup >= this.sections[this.sections.length-1]-1) {
+	/*if (this.lastGroup >= this.sections[this.sections.length-1]-1) {
 		this.end();
 		return;
-	}
+	}*/
 	if (this.sections.indexOf(++this.lastGroup) == -1) return;
 	
 	var self = this;
@@ -104,13 +104,13 @@ this.log(this.lastGroup);
 	},200);
 	this.lastImage++;
 	
-	this.log('page: '+this.lastImage);
+	/*this.log('page: '+this.lastImage);
 	
 	if (this.grayscale) {
 		$('img.white.group'+this.lastImage).animate({'opacity':this.opacity[this.lastImage]});
 	} else {
 		$('img.color.group'+this.lastImage).animate({'opacity':this.opacity[this.lastImage]});
-	}
+	}*/
 }
 
 Reveal.prototype.Previous = function() {
