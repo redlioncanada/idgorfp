@@ -4,11 +4,16 @@ var oggsrc = null;
 var videojq = null;
 var forwardFolder = "video/forward/";
 var backwardFolder = "video/backward/";
+var caseFolder = "video/case/";
 var videoLayer = 1;
 
 var useVideo = null;
 var usemp4 = null;
 var useogg = null;
+
+var overlayVideo = document.getElementById("layer2video");
+var overlaymp4 = document.getElementById("mp4_src2");
+var overlayogg = document.getElementById("ogg_src2");
 
 var videoWidth = $('#layer0video').width();
 var bookWidth = videoWidth * .5113356459918;
@@ -145,7 +150,7 @@ frontvideo.load();
  * @return void
  */
 var enableButtons = function(fade,time) {
-	if (!window.buttonsDisabled) return;
+	if (!window.buttonsDisabled || window.end) return;
 	if (typeof fade == 'undefined') fade = false;
 	if (typeof time == 'undefined') time = 400;
 	console.log('enableButtons,fade:'+fade);
@@ -158,9 +163,11 @@ var enableButtons = function(fade,time) {
 	}
 	
 	if ($.inArray(videoList[videoIndex],caseStudyVideos) != -1) {
+		overlaymp4.src = caseFolder + videoList[videoIndex] + '.mp4';
+		overlayogg.src = caseFolder + videoList[videoIndex] + '.ogg';
+		overlayVideo.load();
 		$('#clickzone').bind('click', function(e) {
 			showVideoOverlay();
-			console.log("click");
 		});
 	}
 };
@@ -176,15 +183,15 @@ var enableButtons = function(fade,time) {
  * @return void
  */
 var disableButtons = function(fade,hide,time) {
-	if (window.buttonsDisabled && !fade && !hide) return;
+	if (window.buttonsDisabled && !hide) return;
 	console.log('disable buttons,fade:'+fade+',hide:'+hide);
 	window.buttonsDisabled = true;
 	if (typeof hide == 'undefined') hide = false;
 	if (typeof fade == 'undefined') fade = false;
 	if (typeof time == 'undefined') time = 400;
-	if ($('.button').eq(0).css('opacity') == 1 || hide) {
-		if (hide) {$('.button').animate({'opacity':0},time); return;}
-		if (fade) $('.button').animate({'opacity':0.25},time);
+	if ($('.button').eq(0).css('opacity') == 1) {
+		if (hide) {$('.button').stop(true,true).animate({'opacity':0},time); return;}
+		if (fade) $('.button').stop(true,true).animate({'opacity':0.25},time);
 		if (hide || fade) $('.button').css('cursor','default');
 	}
 	$('#clickzone').unbind('click');
@@ -330,7 +337,7 @@ var useVideoHandler = function(){
 		if (videoList[videoIndex] == "01_BookOpen") enableButtons(true,false,1);
 		else enableButtons(true);
 	} else {
-		$('#pdf').animate({'opacity':1},200);
+		$('#pdf').animate({'opacity':1},400);
 	}
 };
 
@@ -342,38 +349,46 @@ var useVideoHandler = function(){
  */
 var showVideoOverlay = function() {
 <<<<<<< HEAD
-	$('#video0').animate({'opacity':1},400);
+	$('#video3').animate({'opacity':1},400);
+	disableButtons(true,true);
+=======
+	$('#video3').css('display','block').animate({'opacity':1},400);
+>>>>>>> FETCH_HEAD
 	$('#rl').animate({'opacity':0},200, function() {
 		$('#rl').css('display','none');
 		$('#close').delay(100).animate({'opacity':1},400).css('display','block');
-=======
-	console.log("showVideoOverlay");
-	$('#video3').animate({'opacity':1},0.4);
-	$('#close').animate({'opacity':1},0.4, function() {
-		$('#rl').fadeOut();
-		$(this).bind("click", function() {
+		$('#close').bind('click', function(e) {
+			e.preventDefault();
 			hideVideoOverlay();
 		})
->>>>>>> 975ddc9061bd9cc6d45cafaa9b904782d60ed93c
+		overlayVideo.play();
 	});
 };
 
 /**
- * shideVideoOverlay function.
+ * hideVideoOverlay function.
  * hides the popup video overlay
  * 
  * @return void
  */
 var hideVideoOverlay = function() {
 <<<<<<< HEAD
-	$('#video0').animate({'opacity':0},400);
+	$('#video3').animate({'opacity':0},300,function(){
+		$(this).css('display','none')
+	});
+	$('#close').animate({'opacity':0},300, function() {
+=======
+<<<<<<< HEAD
+	$('#close').unbind('click');
+	overlayVideo.stop();
+	$('#video3').animate({'opacity':0},400);
+=======
+	$('#video3').css('display','none').animate({'opacity':0},400);
+>>>>>>> FETCH_HEAD
 	$('#close').animate({'opacity':0},200, function() {
+>>>>>>> 2fbcf73488b5bdf697cb2d845ec6810c428c222b
 		$('#close').css('display','none');
 		$('#rl').delay(100).animate({'opacity':1},400).css('display','block');
-=======
-	$('#video3').animate({'opacity':0},0.4);
-	$('#close').animate({'opacity':0},0.4, function() {
-		$('#rl').fadeIn();
->>>>>>> 975ddc9061bd9cc6d45cafaa9b904782d60ed93c
+		enableButtons(true);
 	});
 };
