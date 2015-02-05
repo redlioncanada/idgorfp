@@ -318,21 +318,6 @@ var initVideo = function() {
 };
 
 /**
- * useVideoHandler function.
- * called on video end, referenced to remove it on end
- * 
- * @return void
- */
-var useVideoHandler = function(){
-	if (!window.ended) {
-		if (videoList[videoIndex] == "01_BookOpen") enableButtons(true,false,1);
-		else enableButtons(true);
-	} else {
-		$('#pdf').animate({'opacity':1},400);
-	}
-};
-
-/**
  * showVideoOverlay function.
  * shows the popup video overlay
  * 
@@ -344,6 +329,7 @@ var showVideoOverlay = function() {
 		$('#rl').css('display','none');
 		$('#close').delay(100).animate({'opacity':1},400).css('display','block');
 		overlayVideo.play();
+		overlayVideo.addEventListener('ended', overlayVideoHandler);
 	});
 };
 
@@ -362,4 +348,30 @@ var hideVideoOverlay = function() {
 		$('#rl').delay(100).animate({'opacity':1},400).css('display','block');
 	});
 	overlayVideo.pause();
+};
+
+/**
+ * overlayVideoHandler function.
+ * called on video end, closes the overlay
+ * 
+ * @return void
+ */
+var overlayVideoHandler = function() {
+	this.removeEventListener('ended', overlayVideoHandler);
+	hideVideoOverlay();
+};
+
+/**
+ * useVideoHandler function.
+ * called on video end, referenced to remove it on end
+ * 
+ * @return void
+ */
+var useVideoHandler = function(){
+	if (!window.ended) {
+		if (videoList[videoIndex] == "01_BookOpen") enableButtons(true,false,1);
+		else enableButtons(true);
+	} else {
+		$('#pdf').animate({'opacity':1},400);
+	}
 };
