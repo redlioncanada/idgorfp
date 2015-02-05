@@ -18,35 +18,6 @@ var overlayogg = document.getElementById("ogg_src2");
 // Set video list and index vars
 var videoList = [
 	"01_BookOpen",
-	"openTo02",
-	"02To03",
-	"03To04",
-	"04To05",
-	"05To06",
-	"06To07",
-	"07To08",
-	"08To09",
-	"09To10",
-	"10To11",
-	"11To12",
-	"12To13",
-	"13To14",
-	"14To15",
-	"15To16",
-	"16To17",
-	"17To18",
-	"18To19",
-	"19To20",
-	"20To21",
-	"21To22",
-	"22To23",
-	"23To24",
-	"24To25",
-	"25To26",
-	"26To27",
-	"27To28",
-	"28To29",
-	"29To30",
 	"EndVid"
 ];
 var reverseVideoList = [
@@ -173,7 +144,7 @@ var disableButtons = function(fade,hide,time) {
 	if (typeof hide == 'undefined') hide = false;
 	if (typeof fade == 'undefined') fade = false;
 	if (typeof time == 'undefined') time = 400;
-	if ($('.button').eq(0).css('opacity') == 1 && !$('.button').eq(0).is(':animated')) {
+	if ($('.button').eq(0).css('opacity') == 1 && !$('.button').eq(0).is(':animated') || hide) {
 		$('#caseOverlays img').animate({'opacity':0},time, function() {
 			$(this).css('display','none');
 		});
