@@ -22,7 +22,7 @@ $('#next').on('click', function() {
 	if (!window.disableButtons) {
 		console.log("next clicked");
 		window.disableButtons = true;
-		reveal.Next();
+		//reveal.Next();
 		forwardClick();
 	}
 });
