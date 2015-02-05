@@ -24,6 +24,10 @@ $('#video3').on('click', function() {
 	hideVideoOverlay();
 });
 
+$('#clickzone').on('click', function() {
+	showVideoOverlay();
+});
+
 $(document).ready(function() {
 	initVideo();
 	resize(true);

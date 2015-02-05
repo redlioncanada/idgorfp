@@ -45,6 +45,8 @@ var videoList = [
 	"25To26",
 	"26To27",
 	"27To28",
+	"28To29",
+	"29To30",
 	"EndVid"
 ];
 var reverseVideoList = [
@@ -148,9 +150,9 @@ var enableButtons = function(fade,time) {
 		overlaymp4.src = caseFolder + videoList[videoIndex] + '.mp4';
 		overlayogg.src = caseFolder + videoList[videoIndex] + '.ogg';
 		overlayVideo.load();
-		$('#clickzone').bind('click', function(e) {
-			showVideoOverlay();
-		});
+		$('#clickzone').css('display','block');
+	} else {
+		$('#clickzone').css('display','none');
 	}
 };
 
@@ -176,7 +178,6 @@ var disableButtons = function(fade,hide,time) {
 		if (hide) {$('.button').stop(true,true).animate({'opacity':0},time); return;}
 		if (fade) $('.button').stop(true,true).animate({'opacity':0.25},time);
 	}
-	$('#clickzone').unbind('click');
 };
 
 /**
