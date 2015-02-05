@@ -74,7 +74,7 @@ function resize(init) {
 	});
 	
 	$('#buttons>.button').css({
-		top: windowHeight/2-$('#buttons>.button').height()+15+"px"
+		top: (windowHeight/2-$('#buttons>.button').height()/2)+"px"
 	});
 	
 	var pdfTop = $('#blackbar.bottom').offset().top > windowHeight ? windowHeight : $('#blackbar.bottom').offset().top;
