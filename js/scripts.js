@@ -65,6 +65,8 @@ var videoList = [
 	"25To26",
 	"26To27",
 	"27To28",
+	"28To29",
+	"29To30",
 	"EndVid"
 ];
 var reverseVideoList = [
@@ -95,14 +97,16 @@ var reverseVideoList = [
 	"24To25Reverse",
 	"25To26Reverse",
 	"26To27Reverse",
-	"27To28Reverse"
+	"27To28Reverse",
+	"28To29Reverse",
+	"29To30Reverse"
 ];
 
 var caseStudyVideos = [
 	"13To14",
-	"14To15",
-	"16To17",
-	"17To18"
+	"15To16",
+	"17To18",
+	"19To20"
 ];
 
 var videoIndex = 0;
