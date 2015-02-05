@@ -138,7 +138,7 @@ frontvideo.load();
 var enableButtons = function(fade,time) {
 	if (!window.buttonsDisabled) return;
 	if (typeof fade == 'undefined') fade = false;
-	if (typeof time == 'undefined') time = 0.4;
+	if (typeof time == 'undefined') time = 400;
 	console.log('enableButtons,fade:'+fade);
 	window.buttonsDisabled = false;
 	useVideo.removeEventListener("ended", useVideoHandler);
@@ -165,7 +165,7 @@ var disableButtons = function(fade,hide,time) {
 	window.buttonsDisabled = true;
 	if (typeof hide == 'undefined') hide = false;
 	if (typeof fade == 'undefined') fade = false;
-	if (typeof time == 'undefined') time = 0.4;
+	if (typeof time == 'undefined') time = 400;
 	if ($('.button').eq(0).css('opacity') == 1 || hide) {
 		if (hide) {$('.button').animate({'opacity':0},time); return;}
 		if (fade) $('.button').animate({'opacity':0.25},time);
@@ -324,9 +324,10 @@ var useVideoHandler = function(){
  * @return void
  */
 var showVideoOverlay = function() {
-	$('#video0').animate({'opacity':1},0.4);
-	$('#close').animate({'opacity':1},0.4, function() {
-		$('#rl').fadeOut();
+	$('#video0').animate({'opacity':1},400);
+	$('#rl').animate({'opacity':0},200, function() {
+		$('#rl').css('display','none');
+		$('#close').delay(100).animate({'opacity':1},400).css('display','block');
 	});
 };
 
@@ -337,8 +338,9 @@ var showVideoOverlay = function() {
  * @return void
  */
 var hideVideoOverlay = function() {
-	$('#video0').animate({'opacity':0},0.4);
-	$('#close').animate({'opacity':0},0.4, function() {
-		$('#rl').fadeIn();
+	$('#video0').animate({'opacity':0},400);
+	$('#close').animate({'opacity':0},200, function() {
+		$('#close').css('display','none');
+		$('#rl').delay(100).animate({'opacity':1},400).css('display','block');
 	});
 };

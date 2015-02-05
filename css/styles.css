@@ -68,6 +68,9 @@ body > div {position: absolute; top:0; width:100%; height: 100%}
 #illustrations>img.white {z-index:2;}
 #logo {position: absolute; top: 53px; right: 108px; width: auto; height: auto; z-index: 100;}
 #logo img, #logo a {width: 33px; position: absolute;}
+#logo a {z-index:2;}
+#logo_backer {z-index:1;}
+#close {display: none; opacity: 0;}
 #pdf {position: absolute; bottom: 200px; right: 80px; width: auto; height: 14px; z-index: 100;}
 #pdf img {height: 14px;}
 img#indigo {width: 196px; position: relative; top: 420px; z-index:0;}
