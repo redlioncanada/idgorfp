@@ -20,11 +20,9 @@ $('#close').on('click', function() {
 	hideVideoOverlay();
 });
 
-$('#video0').on('click', function() {
+$('#video3').on('click', function() {
 	hideVideoOverlay();
 });
-
-
 
 $(document).ready(function() {
 	initVideo();
