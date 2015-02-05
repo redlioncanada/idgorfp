@@ -10,6 +10,25 @@ var useVideo = null;
 var usemp4 = null;
 var useogg = null;
 
+var videoWidth = $('#layer0video').width();
+var bookWidth = videoWidth * .5113356459918;
+var deadZoneLeft = videoWidth * .23767995016545;
+var deadZoneRight = deadZoneLeft;
+var videoHeight = $('#layer0video').height();
+var deadZoneTop = videoHeight * .11245944849959;
+var deadZoneBottom = videoHeight * .08333333333333;
+var videoLeft = $('#layer0video').offset().left;
+var videoTop = $('#layer0video').offset().top;
+var windowHeight = $(window).height();
+var windowWidth = $(window).width();
+
+$('#clickzone').css({
+	width: (videoWidth-deadZoneLeft-deadZoneRight)+"px",
+	height: ((videoWidth-deadZoneLeft-deadZoneRight)/(1.1117))+"px",
+	left: videoLeft+deadZoneLeft+"px",
+	top: videoTop+deadZoneTop+"px"
+});
+
 // Set video list and index vars
 var videoList = [
 	"01_BookOpen",
@@ -169,17 +188,7 @@ function reorderVideos(direct) {
 	backvideo.load();
 	
 	useVideo.addEventListener('loadeddata', playforward);
-	
-	if (videoLayer == 0) {
-		setTimeout(function() {
-			$("#layer1video").fadeOut(500);
-		}, 500);
-	} else {
-		setTimeout(function() {
-			$("#layer1video").fadeIn(500);
-		}, 500);
-	}
-	
+		
 	if (direct < 0) { 
 		videoIndex--;
 	}
@@ -194,6 +203,15 @@ function reorderVideos(direct) {
  * @return void
  */
 var playforward = function(event) {
+	if (videoLayer == 0) {
+		setTimeout(function() {
+			$("#layer1video").fadeOut(500);
+		}, 300);
+	} else {
+		setTimeout(function() {
+			$("#layer1video").fadeIn(500);
+		}, 300);
+	}
 	useVideo.play(); 
 	useVideo.addEventListener("ended", enablebuttons);
 	useVideo.removeEventListener("loadeddata", playforward);
