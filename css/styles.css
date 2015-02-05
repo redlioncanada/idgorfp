@@ -62,7 +62,10 @@ body > div {position: absolute; top:0; width:100%; height: 100%}
 #illustrations {z-index: 50; height: 100%; width: inherit; position: absolute;}
 #illustrations>img {position:absolute; z-index:1; height: 103%; left: -17%;}
 #illustrations>img.white {z-index:2;}
-#logo {position: absolute; top: 200px; left: 89px; width: auto; height: auto; z-index: 100;}
+#logo {position: absolute; top: 200px; right: 75px; width: auto; height: auto; z-index: 100;}
+#logo img {width: 33px;}
+#pdf {position: absolute; bottom: 200px; right: 80px; width: auto; height: 14px; z-index: 100;}
+#pdf img {height: 14px;}
 img#indigo {width: 196px; position: relative; top: 420px; z-index:0;}
 #next {right: 80px;}
 #prev {left: 80px;}

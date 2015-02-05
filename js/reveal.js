@@ -50,9 +50,21 @@ function Reveal(opts) {
 			top: windowHeight/2-$('#buttons>.button').height()+15+"px"
 		});
 		
+		var pdfTop = $('#blackbar.bottom').offset().top > windowHeight ? windowHeight : $('#blackbar.bottom').offset().top;
+		$('#pdf').css({
+			top: (pdfTop - $('#pdf').height() - 50) + "px"
+		});
+		
+		$('#logo').css({
+			top: ($('#blackbar.top').height() + $('#logo').height() + 10) + "px"
+		});
+		
 		if (!init && !$('#logo').is(':animated')) {
-			if (windowWidth < 620 || windowHeight < 600) $('#logo').animate({'opacity':0},200)
-			else $('#logo').animate({'opacity':1},200)
+			if (windowWidth < 750 || windowHeight < 600) {
+				$('#logo,#pdf').animate({'opacity':0},200)
+			} else {
+				$('#logo,#pdf').animate({'opacity':1},200)
+			}
 		}
 	};
 	this.init = function() {
