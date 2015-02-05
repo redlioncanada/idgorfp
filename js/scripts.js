@@ -245,7 +245,7 @@ var playforward = function(event) {
 		}, 300);
 	}
 	useVideo.play(); 
-	useVideo.addEventListener("ended", function(){enableButtons(true)});
+	useVideo.addEventListener("ended", useVideoHandler);
 	useVideo.removeEventListener("loadeddata", playforward);
 };
 
@@ -303,5 +303,5 @@ var initVideo = function() {
  * @return void
  */
 var useVideoHandler = function(){
-	enableButtons(true);
+	if (!ended) enableButtons(true);
 };
