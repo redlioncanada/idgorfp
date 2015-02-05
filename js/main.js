@@ -28,7 +28,7 @@ $(window).on('resize', function(){
 	resize();
 });
 
-setTimeout(function(){showVideoOverlay();},2000);
+//setTimeout(function(){showVideoOverlay();},2000);
 
 function resize(init) {
 	if (typeof init == 'undefied') init = false;
