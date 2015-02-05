@@ -146,13 +146,13 @@ var enableButtons = function(fade,time) {
 		});
 	}
 	
-	if ($.inArray(videoList[videoIndex],caseStudyVideos) != -1) {
+	var index = $.inArray(videoList[videoIndex],caseStudyVideos);
+	if (index != -1) {
 		overlaymp4.src = caseFolder + videoList[videoIndex] + '.mp4';
 		overlayogg.src = caseFolder + videoList[videoIndex] + '.ogg';
 		overlayVideo.load();
 		$('#clickzone').css('display','block');
-	} else {
-		$('#clickzone').css('display','none');
+		$('#caseOverlays img').filter('[data-id="'+index+'"]').css('display','block').animate({'opacity':1},time);
 	}
 };
 
@@ -174,6 +174,9 @@ var disableButtons = function(fade,hide,time) {
 	if (typeof fade == 'undefined') fade = false;
 	if (typeof time == 'undefined') time = 400;
 	if ($('.button').eq(0).css('opacity') == 1 && !$('.button').eq(0).is(':animated')) {
+		$('#caseOverlays img').animate({'opacity':0},time, function() {
+			$(this).css('display','none');
+		});
 		if (hide || fade) $('.button').css('cursor','default');
 		if (hide) {$('.button').stop(true,true).animate({'opacity':0},time); return;}
 		if (fade) $('.button').stop(true,true).animate({'opacity':0.25},time);

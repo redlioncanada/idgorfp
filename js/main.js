@@ -44,33 +44,33 @@ function resize(init) {
 	var windowWidth = $(window).width();
 	var videoWidth = $('#layer0video').width();
 	var bookWidth = videoWidth * .5113356459918;
-	var deadZoneLeft = videoWidth * .23767995016545;
-	var deadZoneRight = videoWidth * .24767995016545;
+	var deadZoneLeft = videoWidth * .24267995016545;
+	var deadZoneRight = videoWidth * .24167995016545;
 	var videoHeight = windowWidth / (16/9);
 	var deadZoneTop = videoHeight * .13;
 	var deadZoneBottom = videoHeight * .13;
 	var videoLeft = $('#layer0video').offset().left;
-	var videoTop = $('#layer0video').offset().top;
-	var newVideoTop = ((windowHeight-videoHeight)/2);
+	var videoTop = ((windowHeight-videoHeight)/2);
+	var bookHeight = videoHeight-deadZoneTop-deadZoneBottom;
 
 	$('#clickzone').css({
 		width: (videoWidth-deadZoneLeft-deadZoneRight)+"px",
-		height: (videoHeight-deadZoneTop-deadZoneBottom)+"px",
+		height: bookHeight+"px",
 		left: videoLeft+deadZoneLeft+"px",
-		top: newVideoTop+deadZoneTop+"px"
+		top: videoTop+deadZoneTop+"px"
 	});
 	
 	$('#video1,#video2,#video3,#placeholder').css({
-		top: newVideoTop+"px"
+		top: videoTop+"px"
 	});
 	
 	$('#blackbar.bottom').css({
-		top: windowHeight-newVideoTop + "px",
-		height: newVideoTop+"px",
+		top: windowHeight-videoTop + "px",
+		height: videoTop+"px",
 	});
 	
 	$('#blackbar.top').css({
-		height: newVideoTop+"px"
+		height: videoTop+"px"
 	});
 	
 	$('#buttons>.button').css({
