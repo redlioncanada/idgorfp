@@ -150,7 +150,7 @@ frontvideo.load();
  * @return void
  */
 var enableButtons = function(fade,time) {
-	if (!window.buttonsDisabled) return;
+	if (!window.buttonsDisabled || window.end) return;
 	if (typeof fade == 'undefined') fade = false;
 	if (typeof time == 'undefined') time = 400;
 	console.log('enableButtons,fade:'+fade);
@@ -183,15 +183,15 @@ var enableButtons = function(fade,time) {
  * @return void
  */
 var disableButtons = function(fade,hide,time) {
-	if (window.buttonsDisabled && !fade && !hide) return;
+	if (window.buttonsDisabled && !hide) return;
 	console.log('disable buttons,fade:'+fade+',hide:'+hide);
 	window.buttonsDisabled = true;
 	if (typeof hide == 'undefined') hide = false;
 	if (typeof fade == 'undefined') fade = false;
 	if (typeof time == 'undefined') time = 400;
-	if ($('.button').eq(0).css('opacity') == 1 || hide) {
-		if (hide) {$('.button').animate({'opacity':0},time); return;}
-		if (fade) $('.button').animate({'opacity':0.25},time);
+	if ($('.button').eq(0).css('opacity') == 1) {
+		if (hide) {$('.button').stop(true,true).animate({'opacity':0},time); return;}
+		if (fade) $('.button').stop(true,true).animate({'opacity':0.25},time);
 		if (hide || fade) $('.button').css('cursor','default');
 	}
 	$('#clickzone').unbind('click');
@@ -337,7 +337,7 @@ var useVideoHandler = function(){
 		if (videoList[videoIndex] == "01_BookOpen") enableButtons(true,false,1);
 		else enableButtons(true);
 	} else {
-		$('#pdf').animate({'opacity':1},200);
+		$('#pdf').animate({'opacity':1},400);
 	}
 };
 
@@ -348,8 +348,12 @@ var useVideoHandler = function(){
  * @return void
  */
 var showVideoOverlay = function() {
+<<<<<<< HEAD
 	$('#video3').animate({'opacity':1},400);
 	disableButtons(true,true);
+=======
+	$('#video3').css('display','block').animate({'opacity':1},400);
+>>>>>>> FETCH_HEAD
 	$('#rl').animate({'opacity':0},200, function() {
 		$('#rl').css('display','none');
 		$('#close').delay(100).animate({'opacity':1},400).css('display','block');
@@ -368,9 +372,13 @@ var showVideoOverlay = function() {
  * @return void
  */
 var hideVideoOverlay = function() {
+<<<<<<< HEAD
 	$('#close').unbind('click');
 	overlayVideo.stop();
 	$('#video3').animate({'opacity':0},400);
+=======
+	$('#video3').css('display','none').animate({'opacity':0},400);
+>>>>>>> FETCH_HEAD
 	$('#close').animate({'opacity':0},200, function() {
 		$('#close').css('display','none');
 		$('#rl').delay(100).animate({'opacity':1},400).css('display','block');
