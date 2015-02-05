@@ -146,7 +146,7 @@ frontvideo.load();
  * 
  * @access public
  * @optional param bool fade
- * optional param int time
+ * @optional param int time
  * @return void
  */
 var enableButtons = function(fade,time) {
@@ -190,9 +190,9 @@ var disableButtons = function(fade,hide,time) {
 	if (typeof fade == 'undefined') fade = false;
 	if (typeof time == 'undefined') time = 400;
 	if ($('.button').eq(0).css('opacity') == 1) {
+		if (hide || fade) $('.button').css('cursor','default');
 		if (hide) {$('.button').stop(true,true).animate({'opacity':0},time); return;}
 		if (fade) $('.button').stop(true,true).animate({'opacity':0.25},time);
-		if (hide || fade) $('.button').css('cursor','default');
 	}
 	$('#clickzone').unbind('click');
 };
