@@ -141,9 +141,16 @@ var enableButtons = function(fade,time) {
 	window.buttonsDisabled = false;
 	useVideo.removeEventListener("ended", useVideoHandler);
 	if ($('.button').eq(0).css('opacity') != 1 && !$('.button').eq(0).is(':animated') && fade) {
-		$('.button').animate({'opacity':1},time, function(){
-			$(this).css('cursor','pointer');
-		});
+		if (videoList[videoIndex] == "01_BookOpen") {
+			$('#next').animate({'opacity':1},time, function(){
+				$(this).css('cursor','pointer');
+			});
+			$('#prev').animate({'opacity':0.25},time);
+		} else {
+			$('.button').animate({'opacity':1},time, function(){
+				$(this).css('cursor','pointer');
+			});
+		}
 	}
 	
 	var index = $.inArray(videoList[videoIndex],caseStudyVideos);
