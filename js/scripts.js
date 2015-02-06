@@ -181,7 +181,7 @@ var disableButtons = function(fade,hide,time) {
 	if (typeof hide == 'undefined') hide = false;
 	if (typeof fade == 'undefined') fade = false;
 	if (typeof time == 'undefined') time = 400;
-	if ($('.button').eq(0).css('opacity') == 1 && !$('.button').eq(0).is(':animated') || hide) {
+	if ($('#next').css('opacity') == 1 && !$('.button').eq(0).is(':animated') || hide) {
 		$('#caseOverlays img').animate({'opacity':0},time, function() {
 			$(this).css('display','none');
 			$('#clickzone').css('display','none');
@@ -331,9 +331,24 @@ var initVideo = function() {
 var showVideoOverlay = function() {
 	$('#video3').css('display','block').animate({'opacity':1},400);
 	changeVolume(0, 1000);
+	
+	var index = $.inArray(videoList[videoIndex],caseStudyVideos)
+	if (index == 0 || index == 2) {
+		$({invert: 0}).animate({invert: 100}, {
+        	duration: 300,
+        	easing: 'linear',
+        	step: function() {
+            	$('#rl,#close,#logo_backer').css({
+                	"-webkit-filter": "invert("+this.invert+"%)",
+                	"filter": "blur("+this.invert+"%)"
+            	});
+            }
+        });
+    }
+        
 	$('#rl').animate({'opacity':0},200, function() {
 		$('#rl').css('display','none');
-		$('#close').delay(100).animate({'opacity':1},400).css('display','block');
+		$('#close').delay(100).css('display','block').animate({'opacity':1},400);
 		overlayVideo.play();
 		overlayVideo.addEventListener('ended', overlayVideoHandler);
 	});
@@ -349,9 +364,25 @@ var hideVideoOverlay = function() {
 	$('#video3').animate({'opacity':0},300,function(){
 		$(this).css('display','none');
 	});
+	
+	var index = $.inArray(videoList[videoIndex],caseStudyVideos)
+	var delay = index == 0 ? 200 : 0;
+	if (index == 0 || index == 2) {
+		$({invert: 100}).delay(delay).animate({invert: 0}, {
+        	duration: 500,
+        	easing: 'linear',
+        	step: function() {
+            	$('#rl,#close,#logo_backer').css({
+                	"-webkit-filter": "invert("+this.invert+"%)",
+                	"filter": "blur("+this.invert+"%)"
+            	});
+            }
+        });
+    }
+    
 	$('#close').animate({'opacity':0},300, function() {
 		$('#close').css('display','none');
-		$('#rl').delay(100).animate({'opacity':1},400).css('display','block');
+		$('#rl').delay(100).css('display','block').animate({'opacity':1},400);
 	});
 	overlayVideo.pause();
 	changeVolume(20, 1000);
